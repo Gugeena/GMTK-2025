@@ -204,9 +204,14 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(transform.up * 425 * rb.gravityScale);
             isGrounded = false;
         }
+
         if (collision.gameObject.CompareTag("camTrigger"))
         {
             cameraAnim.Play("camera_rise");
+        }
+        else if (collision.gameObject.CompareTag("camTriggerDown"))
+        {
+            cameraAnim.Play("camera_fall");
         }
     }
 
