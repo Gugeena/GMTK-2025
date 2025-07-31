@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - EnemyAttack
+  - JumpPad
+  - camTrigger
   layers:
   - Default
   - TransparentFX

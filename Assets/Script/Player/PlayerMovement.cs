@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private AnimationClip[] punchCombos;
 
+    [SerializeField]
+    private Animator cameraAnim;
 
     private int comboIndex = 0;
     [SerializeField]
@@ -107,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(punch());
         }
 
-        if((elapsed >= comboTime) || comboIndex >= (punchCombos.Length) || isRunning)
+        if((elapsed >= comboTime) || (comboIndex >= punchCombos.Length) || isRunning)
         {
             comboIndex = 0;
         }
@@ -148,23 +150,17 @@ public class PlayerMovement : MonoBehaviour
         if (!isGrounded)
         {
             rb.AddForce(transform.right * direction * (dashForce - 200));
-            anim.Play("player_dash");
-            yield return new WaitForSeconds(0.3f);
-            isDashing = false;
-            rb.gravityScale = 1f;
-            StartCoroutine(dashCooldown());
-            yield break;
         }
         else
         {
             rb.AddForce(transform.right * direction * dashForce);
-            anim.Play("player_dash");
-            yield return new WaitForSeconds(0.3f);
-            isDashing = false;
-            rb.gravityScale = 1f;
-            StartCoroutine(dashCooldown());
-            yield break;
         }
+        anim.Play("player_dash");
+        yield return new WaitForSeconds(0.3f);
+        isDashing = false;
+        rb.gravityScale = 1f;
+        StartCoroutine(dashCooldown());
+        yield break;
     }
     private IEnumerator jump()
     {
@@ -201,6 +197,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("JumpPad"))
+        {
+            rb.AddForce(transform.up * 425 * rb.gravityScale);
+            isGrounded = false;
+        }
+        if (collision.gameObject.CompareTag("camTrigger"))
+        {
+            cameraAnim.Play("camera_rise");
+        }
+    }
 
     public IEnumerator dashCooldown()
     {
