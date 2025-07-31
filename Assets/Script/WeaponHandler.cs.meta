@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 505fbfcb641e9c54f96051f24ae5ee0f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - boomerangSprite: {fileID: 160159198, guid: 4ec37cfc8854b234997c7c561d5ae88b, type: 3}
+  - spearSprite: {fileID: 617151225, guid: 4ec37cfc8854b234997c7c561d5ae88b, type: 3}
+  - mfSprite: {fileID: 617151225, guid: 4ec37cfc8854b234997c7c561d5ae88b, type: 3}
+  - bowSprite: {instanceID: 0}
+  - mjolnirSprite: {fileID: 532422429, guid: 4ec37cfc8854b234997c7c561d5ae88b, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
