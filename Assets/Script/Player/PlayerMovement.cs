@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform camFollowTransform, headPivotTransform;
 
+    [SerializeField]
+    private AnimationClip[] attackCombos;
+
     private Rigidbody2D rb;
     private Animator anim;
 
@@ -69,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(jump());
         }
 
-        isFalling = rb.velocity.y < -3f;
+        isFalling = rb.velocity.y < -2f;
         print(isFalling);
         anim.SetBool("isFalling", isFalling);
         anim.SetBool("isJumping", !isGrounded);
@@ -124,10 +127,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = true;
         }
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
         if (collision.gameObject.name == "LLocation")
         {
             this.transform.position = RLocation.position;
@@ -147,4 +147,5 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
 }
