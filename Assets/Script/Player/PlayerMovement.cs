@@ -6,14 +6,14 @@ using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float speed, dashForce;
+    private float speed, dashForce, jumpForce;
     [SerializeField]
     private Transform camFollowTransform, headPivotTransform;
 
     private Rigidbody2D rb;
     private Animator anim;
 
-    private bool isRunning, isDashing, isJumping, isGrounded;
+    private bool isRunning, isDashing, isGrounded, isFalling;
 
     private int direction;
     // Start is called before the first frame update
@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        direction = 1;
     }
 
     // Update is called once per frame
@@ -40,21 +41,34 @@ public class PlayerMovement : MonoBehaviour
         isRunning = x != 0;
         anim.SetBool("isWalking", isRunning);
 
-        if (x < 0 && transform.localScale.x > 0)
-        {
-            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-            direction = -1;
-        }
-        else if (x > 0 && transform.localScale.x < 0)
-        {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            direction = 1;
-        }
 
+        if (!isDashing)
+        {
+            if (x < 0 && transform.localScale.x > 0)
+            {
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+                direction = -1;
+            }
+            else if (x > 0 && transform.localScale.x < 0)
+            {
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                direction = 1;
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.LeftShift)) {
             StartCoroutine(dash());
         }
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            StartCoroutine(jump());
+        }
+
+        isFalling = rb.velocity.y < -3f;
+        print(isFalling);
+        anim.SetBool("isFalling", isFalling);
+        anim.SetBool("isJumping", !isGrounded);
     }
 
     void handleCombat()
@@ -92,6 +106,18 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator jump()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
+        rb.AddForce(transform.up * jumpForce);
+        isGrounded = false;
+        yield return null;
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == 3)
+        {
+            isGrounded = true;
+        }
     }
 }
