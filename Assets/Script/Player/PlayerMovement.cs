@@ -45,9 +45,17 @@ public class PlayerMovement : MonoBehaviour
 
         if(!isDashing)rb.velocity = new Vector2 (x * speed, rb.velocity.y);
 
-        isRunning = x != 0 && isGrounded;
+        isRunning = x != 0;
         anim.SetBool("isWalking", isRunning);
 
+        if(isFalling)
+        {
+            rb.gravityScale = 3f;
+        }
+        else
+        {
+            rb.gravityScale = 1f;
+        }
 
         if (!isDashing)
         {
@@ -108,13 +116,28 @@ public class PlayerMovement : MonoBehaviour
     {
         print("dashing");
         isDashing = true;
-        rb.AddForce(transform.right * direction * dashForce);
-        anim.Play("player_dash");
-        yield return new WaitForSeconds(0.3f);
-        isDashing = false;
-        StartCoroutine(dashCooldown());
+        rb.gravityScale = 0f;
+        if (!isGrounded)
+        {
+            rb.AddForce(transform.right * direction * (dashForce - 200));
+            anim.Play("player_dash");
+            yield return new WaitForSeconds(0.3f);
+            isDashing = false;
+            rb.gravityScale = 1f;
+            StartCoroutine(dashCooldown());
+            yield break;
+        }
+        else
+        {
+            rb.AddForce(transform.right * direction * dashForce);
+            anim.Play("player_dash");
+            yield return new WaitForSeconds(0.3f);
+            isDashing = false;
+            rb.gravityScale = 1f;
+            StartCoroutine(dashCooldown());
+            yield break;
+        }
     }
-
     private IEnumerator jump()
     {
         yield return new WaitForSeconds(0.1f);
@@ -136,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (collision.gameObject.name == "RLocation")
         {
-            this.transform.position = new Vector3(RLocation.position.x, this.transform.position.y, 0);
+            this.transform.position = new Vector3(LLocation.position.x, this.transform.position.y, 0);
             if (isDashing)
             {
                 //direction = -1;
@@ -153,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator dashCooldown()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.8f);
         canDash = true;
     }
 }
