@@ -9,6 +9,8 @@ TagManager:
   - JumpPad
   - camTrigger
   - camTriggerDown
+  - meleehitbox
+  - enemyhitbox
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 

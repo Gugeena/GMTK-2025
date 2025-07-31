@@ -34,6 +34,12 @@ public class PlayerMovement : MonoBehaviour
 
     public bool canDash = true;
 
+    public GameObject meleehitbox;
+    float hp = 0;
+    public bool invincible = false;
+
+    bool canLose = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,9 +52,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print("hp" + hp);
         handleMovement();
         handleLooking();
         handleCombat();
+        handleHP();
     }
 
     void handleMovement()
@@ -132,11 +140,30 @@ public class PlayerMovement : MonoBehaviour
         //headTransform.eulerAngles = new Vector3(0, 0, angle);
     }
 
+    public void handleHP()
+    {
+        if(hp > 0 && canLose)
+        {
+            canLose = false;
+            StartCoroutine(losehp());
+        }
+    }
+
+    public IEnumerator losehp()
+    {
+        hp--;
+        yield return new WaitForSeconds(0.3f);
+        canLose = true;
+        print(hp);
+    }
 
     private IEnumerator punch()
     {
         canPunch = false;
         anim.Play(punchCombos[comboIndex].name);
+        meleehitbox.SetActive(true);
+        yield return new WaitForSeconds(0.12f);
+        meleehitbox.SetActive(false); 
         comboIndex++;
         elapsed = 0;
         yield return new WaitForSeconds(0.4f);
@@ -212,6 +239,12 @@ public class PlayerMovement : MonoBehaviour
         else if (collision.gameObject.CompareTag("camTriggerDown"))
         {
             cameraAnim.Play("camera_fall");
+
+        if (collision.gameObject.tag == "enemyhitbox" && !invincible)
+        {
+            hp += 30;
+            invincible = true;
+            StartCoroutine(TitleCard());
         }
     }
 
@@ -219,5 +252,11 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(0.8f);
         canDash = true;
+    }
+
+    public IEnumerator TitleCard()
+    {
+        yield return new WaitForSeconds(0.5f);
+        invincible = false;
     }
 }

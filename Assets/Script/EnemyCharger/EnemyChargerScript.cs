@@ -13,6 +13,8 @@ public class EnemyChargerScript : MonoBehaviour
     public Animator animator;
     public bool canMove = true;
     Rigidbody2D rb;
+    float hp = 2f;
+    public GameObject particles;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,13 @@ public class EnemyChargerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(canAttack) handleFlip();
+
+        if(hp <= 0)
+        {
+            StartCoroutine(death());
+        }
+
         float distance = Mathf.Abs(player.position.x - transform.position.x);
 
         if (detectiondistance > distance)
@@ -70,6 +79,28 @@ public class EnemyChargerScript : MonoBehaviour
         }
 
     }
+
+    public void handleFlip()
+    {
+        if (player.transform.position.x > this.transform.position.x)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
+
+    public IEnumerator death()
+    {
+        canMove = false;
+        canAttack = false;
+        Instantiate(particles, transform.position, Quaternion.identity);
+        gameObject.SetActive(false);
+        yield break;
+    }
+
     public IEnumerator attack()
     {
         //animplay
@@ -81,5 +112,18 @@ public class EnemyChargerScript : MonoBehaviour
         animator.SetBool("shouldAttack", false);
         canAttack = true;
         canMove = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "meleehitbox")
+        {
+            hp--;
+            float direction = Mathf.Sign(transform.localScale.x);
+            float knockback = 4f;
+            Vector2 force = new Vector2(-direction, 0);
+            rb.AddForce(force * (knockback * 1000f), ForceMode2D.Impulse);
+            print("damaged");
+        }
     }
 }
