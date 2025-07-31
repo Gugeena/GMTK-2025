@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
-    private bool isRunning, isDashing;
+    private bool isRunning, isDashing, isJumping, isGrounded;
 
     private int direction;
     // Start is called before the first frame update
@@ -88,5 +88,10 @@ public class PlayerMovement : MonoBehaviour
         anim.Play("player_dash");
         yield return new WaitForSeconds(0.3f);
         isDashing = false;
+    }
+
+    private IEnumerator jump()
+    {
+        yield return new WaitForSeconds(1f);
     }
 }
