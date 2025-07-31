@@ -16,11 +16,16 @@ public class PlayerMovement : MonoBehaviour
     private bool isRunning, isDashing, isJumping, isGrounded;
 
     private int direction;
+
+    public Transform RLocation;
+    public Transform LLocation;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        direction = 1;
     }
 
     // Update is called once per frame
@@ -83,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator dash()
     {
+        print("dashing");
         isDashing = true;
         rb.AddForce(transform.right * direction * dashForce);
         anim.Play("player_dash");
@@ -93,5 +99,27 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator jump()
     {
         yield return new WaitForSeconds(1f);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "LLocation")
+        {
+            this.transform.position = RLocation.position;
+            if (isDashing)
+            {
+                //direction = -1;
+                StartCoroutine(dash());
+            }
+        }
+        else if (collision.gameObject.name == "RLocation")
+        {
+            this.transform.position = LLocation.position;
+            if (isDashing)
+            {
+                //direction = -1;
+                StartCoroutine(dash());
+            }
+        }
     }
 }

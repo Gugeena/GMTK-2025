@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 74533ee1365acae43a311d8ccdc6b371
+guid: 78d98b648cb9d504c897b9c5ab8ac306
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,11 +93,163 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FirstFloor_0
+      name: Walls&BG-Tileset_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98f21b2b8a11bc74cbede7240c790e5b
+      internalID: 874106369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walls&BG-Tileset_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf746ac7fd442dc439e1b7aecf03a129
+      internalID: 1319568683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walls&BG-Tileset_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f0f1485d9b7fb64cb58f10c7119ef4d
+      internalID: -101273112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walls&BG-Tileset_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a94b7ff330c4e7b49aff4d573e8f7de1
+      internalID: -1050480441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walls&BG-Tileset_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d6c24b450ac1624fb51d2c2ba54bab9
+      internalID: -208302979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walls&BG-Tileset_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7769c7a8750e714a8a735e29fc02e79
+      internalID: 1072836965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walls&BG-Tileset_6
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ba4820cafb0275947af646b6930e2f71
-      internalID: 1294215730
+      spriteID: d23acb4b8b95cb64ea5b8ccbe7351a46
+      internalID: -2104670327
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FirstFloor_1
+      name: Walls&BG-Tileset_7
       rect:
         serializedVersion: 2
         x: 16
@@ -132,14 +284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b4a031dc9a83244bbcfc3714ec6053a
-      internalID: -1221353682
+      spriteID: c5079161ac015584b8fb740a6f68492a
+      internalID: 128698391
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FirstFloor_2
+      name: Walls&BG-Tileset_8
       rect:
         serializedVersion: 2
         x: 32
@@ -153,14 +305,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b37f7c5878072ba4dbb2fce38af69bcb
-      internalID: -543849015
+      spriteID: 5794f5a4c51260a4fa165517c3d6f250
+      internalID: -690396654
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FirstFloor_3
+      name: Walls&BG-Tileset_9
       rect:
         serializedVersion: 2
         x: 48
@@ -174,14 +326,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9953da733c3ff3545b197e6ea7565f48
-      internalID: 2101155525
+      spriteID: a6ccf535079d8334fa06c6a2dfd8ba14
+      internalID: 1927653116
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FirstFloor_4
+      name: Walls&BG-Tileset_10
       rect:
         serializedVersion: 2
         x: 64
@@ -195,14 +347,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0650fa61b16d4954d8d7de22aa58c958
-      internalID: 1098101920
+      spriteID: ce0bdae1200bc0748b2ccb3afe97e20f
+      internalID: 260921385
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FirstFloor_5
+      name: Walls&BG-Tileset_11
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f22cc2472cd103c46b7c48fbc5e2fa30
+      internalID: -520015101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walls&BG-Tileset_12
       rect:
         serializedVersion: 2
         x: 0
@@ -216,35 +389,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 831ca2c28a2579d43b6f3176558b15f4
-      internalID: 1426147570
+      spriteID: e1a873226ee9fd14b9a8353f271fdde8
+      internalID: 1183510477
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FirstFloor_6
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8de7e2d2c01894648a01fe14d87e8118
-      internalID: -1403200303
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FirstFloor_7
+      name: Walls&BG-Tileset_13
       rect:
         serializedVersion: 2
         x: 32
@@ -258,17 +410,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 82e8a201c9117c942b5d46e1ecc73a85
-      internalID: -116623760
+      spriteID: ac41e88a30d721e4dba1fc083316aa0d
+      internalID: -436915581
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FirstFloor_8
+      name: Walls&BG-Tileset_14
       rect:
         serializedVersion: 2
-        x: 48
+        x: 64
         y: 0
         width: 16
         height: 16
@@ -279,8 +431,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce56f3bf3e5aa5944a706f6a254d00b3
-      internalID: -2036381799
+      spriteID: f3b81ada2dccc23448d647d4e2bfa871
+      internalID: 9803643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walls&BG-Tileset_15
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 630c0d6af45b73747bd7a8ff8100e752
+      internalID: -2024008294
       vertices: []
       indices: 
       edges: []
@@ -296,15 +469,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      FirstFloor_0: 1294215730
-      FirstFloor_1: -1221353682
-      FirstFloor_2: -543849015
-      FirstFloor_3: 2101155525
-      FirstFloor_4: 1098101920
-      FirstFloor_5: 1426147570
-      FirstFloor_6: -1403200303
-      FirstFloor_7: -116623760
-      FirstFloor_8: -2036381799
+      Walls&BG-Tileset_0: 874106369
+      Walls&BG-Tileset_1: 1319568683
+      Walls&BG-Tileset_10: 260921385
+      Walls&BG-Tileset_11: -520015101
+      Walls&BG-Tileset_12: 1183510477
+      Walls&BG-Tileset_13: -436915581
+      Walls&BG-Tileset_14: 9803643
+      Walls&BG-Tileset_15: -2024008294
+      Walls&BG-Tileset_2: -101273112
+      Walls&BG-Tileset_3: -1050480441
+      Walls&BG-Tileset_4: -208302979
+      Walls&BG-Tileset_5: 1072836965
+      Walls&BG-Tileset_6: -2104670327
+      Walls&BG-Tileset_7: 128698391
+      Walls&BG-Tileset_8: -690396654
+      Walls&BG-Tileset_9: 1927653116
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
