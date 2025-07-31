@@ -94,6 +94,17 @@ public class EnemyChargerScript : MonoBehaviour
 
     public IEnumerator death()
     {
+        Rigidbody2D[] rbs = GetComponentsInChildren<Rigidbody2D>();
+        foreach (Rigidbody2D rbb in rbs)
+        {
+            rbb.bodyType = RigidbodyType2D.Dynamic;
+            rbb.AddForce(transform.up * Random.Range(2f, 3f), ForceMode2D.Impulse);
+            rbb.AddTorque(Random.Range(6f, 7f));
+            rbb.gameObject.transform.parent = null;
+            rbb.excludeLayers = rbb.excludeLayers ^ (1 << LayerMask.NameToLayer("Player"));
+            BoxCollider2D bc = rbb.gameObject.GetComponent<BoxCollider2D>();
+            if (bc != null) bc.isTrigger = false;
+        }
         canMove = false;
         canAttack = false;
         Instantiate(particles, transform.position, Quaternion.identity);

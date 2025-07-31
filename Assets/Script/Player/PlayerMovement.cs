@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -20,6 +21,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float comboTime;
     private float elapsed;
+
+    [SerializeField]
+    private ParticleSystem runParticles;
+
+    private ParticleSystem.EmissionModule rPEmitter;
 
     private Rigidbody2D rb;
     private Animator anim;
@@ -47,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         direction = 1;
         canPunch = true;
+
+        rPEmitter = runParticles.emission;
     }
 
     // Update is called once per frame
@@ -63,14 +71,23 @@ public class PlayerMovement : MonoBehaviour
     {
         float x = Input.GetAxisRaw("Horizontal");
 
-        if(!isDashing)rb.velocity = new Vector2 (x * speed, rb.velocity.y);
+        if (!isDashing) rb.velocity = new Vector2(x * speed, rb.velocity.y);
 
         isRunning = x != 0;
         anim.SetBool("isWalking", isRunning);
-
-        if (isRunning) anim.SetLayerWeight(1, 0.5f);
-        else anim.SetLayerWeight(1, 1f);
-        if(isFalling)
+        if (isRunning)
+        {
+            anim.SetLayerWeight(1, 0.5f);
+            if (!runParticles.isPlaying) rPEmitter.enabled = true;
+            var emission = runParticles.emission;
+            emission.enabled = true;
+        }
+        else { 
+            anim.SetLayerWeight(1, 1f);
+            var emission = runParticles.emission;
+            emission.enabled = false;
+        }
+        if (isFalling)
         {
             rb.gravityScale = 3f;
         }
@@ -93,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && canDash) 
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && canDash)
         {
             canDash = false;
             StartCoroutine(dash());
@@ -117,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(punch());
         }
 
-        if((elapsed >= comboTime) || (comboIndex >= punchCombos.Length) || isRunning)
+        if ((elapsed >= comboTime) || (comboIndex >= punchCombos.Length) || isRunning)
         {
             comboIndex = 0;
         }
@@ -130,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 pos = Vector2.Lerp(mousePos, headPivotTransform.position, 0.99f);
         pos.z = 0;
         camFollowTransform.position = pos;
-           
+
 
         //Vector3 aimDirection = (mousePos - transform.position).normalized;
 
@@ -142,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void handleHP()
     {
-        if(hp > 0 && canLose)
+        if (hp > 0 && canLose)
         {
             canLose = false;
             StartCoroutine(losehp());
@@ -163,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
         anim.Play(punchCombos[comboIndex].name);
         meleehitbox.SetActive(true);
         yield return new WaitForSeconds(0.12f);
-        meleehitbox.SetActive(false); 
+        meleehitbox.SetActive(false);
         comboIndex++;
         elapsed = 0;
         yield return new WaitForSeconds(0.4f);
@@ -224,6 +241,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public IEnumerator dashCooldown()
+    {
+        yield return new WaitForSeconds(0.8f);
+        canDash = true;
+    }
+
+    public IEnumerator TitleCard()
+    {
+        yield return new WaitForSeconds(0.5f);
+        invincible = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("JumpPad"))
@@ -240,23 +269,14 @@ public class PlayerMovement : MonoBehaviour
         {
             cameraAnim.Play("camera_fall");
 
-        if (collision.gameObject.tag == "enemyhitbox" && !invincible)
-        {
-            hp += 30;
-            invincible = true;
-            StartCoroutine(TitleCard());
+            if (collision.gameObject.tag == "enemyhitbox" && !invincible)
+            {
+                hp += 30;
+                invincible = true;
+                StartCoroutine(TitleCard());
+            }
         }
+
     }
 
-    public IEnumerator dashCooldown()
-    {
-        yield return new WaitForSeconds(0.8f);
-        canDash = true;
-    }
-
-    public IEnumerator TitleCard()
-    {
-        yield return new WaitForSeconds(0.5f);
-        invincible = false;
-    }
 }
