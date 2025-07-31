@@ -10,10 +10,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform camFollowTransform, headPivotTransform;
 
+    [SerializeField]
+    private AnimationClip[] punchCombos;
+
+
+    private int comboIndex = 0;
+    [SerializeField]
+    private float comboTime;
+    private float elapsed;
+
     private Rigidbody2D rb;
     private Animator anim;
 
     private bool isRunning, isDashing, isGrounded, isFalling;
+    private bool canPunch;
 
     private int direction;
 
@@ -28,12 +38,12 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         direction = 1;
+        canPunch = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        print("isGrounded--" + isGrounded);
         handleMovement();
         handleLooking();
         handleCombat();
@@ -45,9 +55,11 @@ public class PlayerMovement : MonoBehaviour
 
         if(!isDashing)rb.velocity = new Vector2 (x * speed, rb.velocity.y);
 
-        isRunning = x != 0 && isGrounded;
+        isRunning = x != 0;
         anim.SetBool("isWalking", isRunning);
 
+        if (isRunning) anim.SetLayerWeight(1, 0.5f);
+        else anim.SetLayerWeight(1, 1f);
 
         if (!isDashing)
         {
@@ -75,17 +87,23 @@ public class PlayerMovement : MonoBehaviour
         }
 
         isFalling = rb.velocity.y < -0.1f;
-        print(isFalling);
         anim.SetBool("isFalling", isFalling);
         anim.SetBool("isJumping", !isGrounded);
     }
 
     void handleCombat()
     {
-        if (Input.GetMouseButtonDown(0))
+        print(comboIndex);
+        if (Input.GetMouseButtonDown(0) && canPunch)
         {
-            anim.Play("player_punch");
+            StartCoroutine(punch());
         }
+
+        if((elapsed >= comboTime) || comboIndex >= (punchCombos.Length) || isRunning)
+        {
+            comboIndex = 0;
+        }
+        if (comboIndex > 0) elapsed += Time.deltaTime;
     }
     void handleLooking()
     {
@@ -104,6 +122,16 @@ public class PlayerMovement : MonoBehaviour
         //headTransform.eulerAngles = new Vector3(0, 0, angle);
     }
 
+
+    private IEnumerator punch()
+    {
+        canPunch = false;
+        anim.Play(punchCombos[comboIndex].name);
+        comboIndex++;
+        elapsed = 0;
+        yield return new WaitForSeconds(0.4f);
+        canPunch = true;
+    }
     private IEnumerator dash()
     {
         print("dashing");
