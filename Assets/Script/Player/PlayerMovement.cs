@@ -16,6 +16,10 @@ public class PlayerMovement : MonoBehaviour
     private bool isRunning, isDashing, isGrounded, isFalling;
 
     private int direction;
+
+    public Transform RLocation;
+    public Transform LLocation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -97,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator dash()
     {
+        print("dashing");
         isDashing = true;
         rb.AddForce(transform.right * direction * dashForce);
         anim.Play("player_dash");
@@ -118,6 +123,28 @@ public class PlayerMovement : MonoBehaviour
         if(collision.gameObject.layer == 3)
         {
             isGrounded = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "LLocation")
+        {
+            this.transform.position = RLocation.position;
+            if (isDashing)
+            {
+                //direction = -1;
+                StartCoroutine(dash());
+            }
+        }
+        else if (collision.gameObject.name == "RLocation")
+        {
+            this.transform.position = LLocation.position;
+            if (isDashing)
+            {
+                //direction = -1;
+                StartCoroutine(dash());
+            }
         }
     }
 }
