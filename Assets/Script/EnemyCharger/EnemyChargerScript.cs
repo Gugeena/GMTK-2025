@@ -55,6 +55,7 @@ public class EnemyChargerScript : MonoBehaviour
             {
                 if (canAttack)
                 {
+                    // && (int) player.position.y == (int) transform.position.y
                     canMove = false;
                     animator.SetBool("shouldRun", false);
                     animator.SetBool("shouldAttack", true);
@@ -62,6 +63,10 @@ public class EnemyChargerScript : MonoBehaviour
                     canAttack = false;
                 }
             }
+        }
+        else
+        {
+            animator.SetBool("shouldRun", false);
         }
 
     }

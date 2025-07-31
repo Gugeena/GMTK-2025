@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform RLocation;
     public Transform LLocation;
 
+    public bool canDash = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print("isGrounded--" + isGrounded);
         handleMovement();
         handleLooking();
         handleCombat();
@@ -42,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
         if(!isDashing)rb.velocity = new Vector2 (x * speed, rb.velocity.y);
 
-        isRunning = x != 0;
+        isRunning = x != 0 && isGrounded;
         anim.SetBool("isWalking", isRunning);
 
 
@@ -60,7 +63,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift)) {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && canDash) 
+        {
+            canDash = false;
             StartCoroutine(dash());
         }
 
@@ -69,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(jump());
         }
 
-        isFalling = rb.velocity.y < -3f;
+        isFalling = rb.velocity.y < -0.1f;
         print(isFalling);
         anim.SetBool("isFalling", isFalling);
         anim.SetBool("isJumping", !isGrounded);
@@ -107,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
         anim.Play("player_dash");
         yield return new WaitForSeconds(0.3f);
         isDashing = false;
+        StartCoroutine(dashCooldown());
     }
 
     private IEnumerator jump()
@@ -117,20 +123,11 @@ public class PlayerMovement : MonoBehaviour
         yield return null;
     }
 
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.layer == 3)
-        {
-            isGrounded = true;
-        }
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.name == "LLocation")
         {
-            this.transform.position = RLocation.position;
+            this.transform.position = new Vector3(RLocation.position.x, this.transform.position.y, 0);
             if (isDashing)
             {
                 //direction = -1;
@@ -139,12 +136,24 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (collision.gameObject.name == "RLocation")
         {
-            this.transform.position = LLocation.position;
+            this.transform.position = new Vector3(RLocation.position.x, this.transform.position.y, 0);
             if (isDashing)
             {
                 //direction = -1;
                 StartCoroutine(dash());
             }
         }
+
+        if (collision.gameObject.layer == 3)
+        {
+            isGrounded = true;
+        }
+    }
+
+
+    public IEnumerator dashCooldown()
+    {
+        yield return new WaitForSeconds(1f);
+        canDash = true;
     }
 }
