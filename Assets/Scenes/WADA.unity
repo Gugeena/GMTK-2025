@@ -131,7 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 40921710}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: headPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 101135294}
   - component: {fileID: 101135296}
   - component: {fileID: 101135297}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GravityBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -500,7 +500,7 @@ GameObject:
   m_Component:
   - component: {fileID: 102143134}
   - component: {fileID: 102143133}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hand_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -715,7 +715,7 @@ GameObject:
   m_Component:
   - component: {fileID: 258620408}
   - component: {fileID: 258620407}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3608,7 +3608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 851051468}
   - component: {fileID: 851051469}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Midra_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3692,7 +3692,7 @@ GameObject:
   m_Component:
   - component: {fileID: 908598703}
   - component: {fileID: 908598702}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4181,6 +4181,74 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &994769884
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 994769887}
+  - component: {fileID: 994769886}
+  - component: {fileID: 994769885}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &994769885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994769884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &994769886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994769884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &994769887
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994769884}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1059366948
 GameObject:
   m_ObjectHideFlags: 0
@@ -4222,7 +4290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1092598408}
   - component: {fileID: 1092598409}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Midra_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4306,7 +4374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1166421242}
   - component: {fileID: 1166421241}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hand_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5382,7 +5450,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1704753321}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cameraFollowPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5414,7 +5482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1709932173}
   - component: {fileID: 1709932174}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Midra_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5498,7 +5566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1718046742}
   - component: {fileID: 1718046743}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Midra_2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5582,7 +5650,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1777762741}
   - component: {fileID: 1777762740}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5668,7 +5736,7 @@ GameObject:
   - component: {fileID: 1813464721}
   - component: {fileID: 1813464722}
   - component: {fileID: 1813464723}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: meleehitbox
   m_TagString: meleehitbox
   m_Icon: {fileID: 0}
@@ -5797,7 +5865,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1845559783}
   - component: {fileID: 1845559784}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Midra_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6466,3 +6534,4 @@ SceneRoots:
   - {fileID: 978431994}
   - {fileID: 994592397}
   - {fileID: 137138946}
+  - {fileID: 994769887}
