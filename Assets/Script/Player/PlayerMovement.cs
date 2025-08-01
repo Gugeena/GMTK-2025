@@ -103,12 +103,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isDashing)
         {
-            if (x < 0 && transform.localScale.x > 0)
+            if (x < 0 && transform.localScale.x > 0 || BowScript.shouldFlip)
             {
                 transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
                 direction = -1;
             }
-            else if (x > 0 && transform.localScale.x < 0)
+            else if (x > 0 && transform.localScale.x < 0 || BowScript.shouldFlip)
             {
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
                 direction = 1;
