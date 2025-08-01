@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -46,8 +47,17 @@ public class PlayerMovement : MonoBehaviour
 
     bool canLose = true;
 
+    public UnityEngine.UI.Slider hpslider;
+    float hpCurVel = 0f;
+
     [SerializeField]
-    private int currentWeapon = 0; //0 - Fists // 1 - bow // 2 - Boomerang // 3 - motherfucker
+    public int currentWeapon = 0; //0 - Fists // 1 - bow // 2 - Boomerang // 3 - motherfucker
+
+    [Header("Weapons")]
+    [SerializeField]
+    private GameObject motherfucker;
+    [SerializeField]
+    private GameObject motherFuckerPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         direction = 1;
         canPunch = true;
+
+
 
         currentWeapon = 0;
 
@@ -71,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
         handleCombat();
         handleHP();
     }
+
 
     void handleMovement()
     {
@@ -103,12 +116,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isDashing)
         {
-            if (x < 0 && transform.localScale.x > 0 || BowScript.shouldFlip)
+            if (x < 0 && transform.localScale.x > 0)
             {
                 transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
                 direction = -1;
             }
-            else if (x > 0 && transform.localScale.x < 0 || BowScript.shouldFlip)
+            else if (x > 0 && transform.localScale.x < 0)
             {
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
                 direction = 1;
@@ -139,6 +152,11 @@ public class PlayerMovement : MonoBehaviour
             else if (currentWeapon == 3)StartCoroutine(mfAttack());
         }
 
+        if(Input.GetMouseButtonDown(1) && canPunch)
+        {
+            if (currentWeapon == 3) StartCoroutine(mfSpecial());
+        }
+
         if ((elapsed >= comboTime) || (comboIndex >= punchCombos.Length) || isRunning)
         {
             comboIndex = 0;
@@ -164,16 +182,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void handleHP()
     {
-        if (hp > 0 && canLose)
+        hp = Mathf.Clamp(hp, 0, 150);
+        float currHP = Mathf.SmoothDamp(hpslider.value, hp, ref hpCurVel, 0.2f);
+        hpslider.value = currHP;
+
+        if (hp < 150 && canLose)
         {
             canLose = false;
             StartCoroutine(losehp());
         }
     }
 
+
     public IEnumerator losehp()
     {
-        hp--;
+        hp++;
         yield return new WaitForSeconds(0.3f);
         canLose = true;
         print(hp);
@@ -203,6 +226,20 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
         canPunch = true;
     }
+
+    private IEnumerator mfSpecial()
+    {
+        anim.Play("player_mf_special");
+        yield return new WaitForSeconds(1.2f);
+        Transform temp = transform.GetChild(3).GetChild(1);
+        Vector2 mfPos = temp.position;
+        Quaternion mfRot = temp.rotation;
+        GameObject m = Instantiate(motherFuckerPrefab, mfPos, mfRot);
+        m.GetComponent<mfScript>().direction = direction;
+        motherfucker.SetActive(false);
+        currentWeapon = 0;
+
+    }
     private IEnumerator dash()
     {
         print("dashing");
@@ -227,6 +264,23 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.AddForce(transform.up * jumpForce);
         isGrounded = false;
+        yield return null;
+    }
+
+    private IEnumerator pickUpWeapon(int id)
+    {
+        currentWeapon = id;
+        
+        if (id == 0)
+        {
+            motherfucker.SetActive(false);
+        }
+        else if (id == 1) { }
+        else if (id == 2) { }
+        else if (id == 3) {
+            print(id);
+            motherfucker.SetActive(true);
+        }
         yield return null;
     }
 
@@ -284,13 +338,26 @@ public class PlayerMovement : MonoBehaviour
         else if (collision.gameObject.CompareTag("camTriggerDown"))
         {
             cameraAnim.Play("camera_fall");
+        }
 
-            if (collision.gameObject.tag == "enemyhitbox" && !invincible)
-            {
-                hp += 30;
-                invincible = true;
-                StartCoroutine(TitleCard());
-            }
+        if (collision.gameObject.CompareTag("weaponPickup") && currentWeapon == 0)
+        {
+            StartCoroutine(pickUpWeapon(collision.gameObject.GetComponent<weaponPickupScript>().weaponID));
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "enemyhitbox" && !invincible)
+        {
+            hp += 30;
+            invincible = true;
+            StartCoroutine(TitleCard());
+        }
+
+        if (collision.gameObject.tag == "enemyorb" && !invincible)
+        {
+            hp -= 20;
+            invincible = true;
+            StartCoroutine(TitleCard());
         }
 
     }

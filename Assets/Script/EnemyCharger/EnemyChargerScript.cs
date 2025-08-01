@@ -16,12 +16,16 @@ public class EnemyChargerScript : MonoBehaviour
     float hp = 2f;
     public GameObject particles;
 
+    private bool isGrounded, isFalling;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player").transform;
         animator = GetComponent<Animator>();
+        isGrounded = false;
+        
     }
 
     // Update is called once per frame
@@ -78,6 +82,8 @@ public class EnemyChargerScript : MonoBehaviour
             animator.SetBool("shouldRun", false);
         }
 
+        animator.SetBool("isGrounded", isGrounded);
+
     }
 
     public void handleFlip()
@@ -108,7 +114,7 @@ public class EnemyChargerScript : MonoBehaviour
         canMove = false;
         canAttack = false;
         Instantiate(particles, transform.position, Quaternion.identity);
-        gameObject.SetActive(false);
+        Destroy(gameObject);
         yield break;
     }
 
@@ -135,6 +141,19 @@ public class EnemyChargerScript : MonoBehaviour
             Vector2 force = new Vector2(-direction, 0);
             rb.AddForce(force * (knockback * 1000f), ForceMode2D.Impulse);
             print("damaged");
+        }
+
+        if (collision.gameObject.tag == "mfHitbox")
+        {
+            StartCoroutine(death());
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 3)
+        {
+            isGrounded = true;
         }
     }
 }
