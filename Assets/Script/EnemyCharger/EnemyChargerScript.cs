@@ -18,6 +18,8 @@ public class EnemyChargerScript : MonoBehaviour
 
     private bool isGrounded, isFalling;
 
+    public GameObject[] weapons;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +27,8 @@ public class EnemyChargerScript : MonoBehaviour
         player = GameObject.Find("Player").transform;
         animator = GetComponent<Animator>();
         isGrounded = false;
-        
+
+        rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
     }
 
     // Update is called once per frame
@@ -44,9 +47,12 @@ public class EnemyChargerScript : MonoBehaviour
         {
             if (distance > stopDistance)
             {
+
                 if (canMove)
                 {
                     animator.SetBool("shouldRun", true);
+                    animator.SetBool("shouldFein", false);
+                    animator.SetBool("shouldAttack", false);
 
                     Vector2 targetposition = new Vector2(player.position.x, transform.position.y);
 
@@ -66,15 +72,23 @@ public class EnemyChargerScript : MonoBehaviour
             }
             else
             {
-                if (canAttack)
+                if (canAttack && (int)player.transform.position.y == (int)this.transform.position.y)
                 {
                     // && (int) player.position.y == (int) transform.position.y
                     canMove = false;
                     animator.SetBool("shouldRun", false);
                     animator.SetBool("shouldAttack", true);
+                    animator.SetBool("shouldFein", false);
                     StartCoroutine(attack());
                     canAttack = false;
                 }
+                else if((int)player.transform.position.y != (int)this.transform.position.y)
+                {
+                    animator.SetBool("shouldRun", false);
+                    animator.SetBool("shouldAttack", false);
+                    animator.SetBool("shouldFein", true);
+                }
+
             }
         }
         else
@@ -111,6 +125,11 @@ public class EnemyChargerScript : MonoBehaviour
             BoxCollider2D bc = rbb.gameObject.GetComponent<BoxCollider2D>();
             if (bc != null) bc.isTrigger = false;
         }
+        int RandomChance = UnityEngine.Random.Range(0, 1);
+        if(RandomChance == 0)
+        {
+            Instantiate(weapons[0], this.gameObject.transform.position, Quaternion.identity);
+        }
         canMove = false;
         canAttack = false;
         Instantiate(particles, transform.position, Quaternion.identity);
@@ -135,6 +154,7 @@ public class EnemyChargerScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "meleehitbox")
         {
+            print("hit");
             hp--;
             float direction = Mathf.Sign(transform.localScale.x);
             float knockback = 4f;
@@ -145,6 +165,7 @@ public class EnemyChargerScript : MonoBehaviour
 
         if (collision.gameObject.tag == "mfHitbox")
         {
+            print("hit");
             StartCoroutine(death());
         }
     }

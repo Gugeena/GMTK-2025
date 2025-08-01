@@ -59,6 +59,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject motherFuckerPrefab;
 
+    public GameObject mfhitbox;
+
+    bool IsJumping = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,11 +71,13 @@ public class PlayerMovement : MonoBehaviour
         direction = 1;
         canPunch = true;
 
-
+        hp = 150f;
 
         currentWeapon = 0;
 
         rPEmitter = runParticles.emission;
+
+         rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
     }
 
     // Update is called once per frame
@@ -87,7 +93,9 @@ public class PlayerMovement : MonoBehaviour
 
     void handleMovement()
     {
+        
         float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
 
         if (!isDashing) rb.velocity = new Vector2(x * speed, rb.velocity.y);
 
@@ -97,10 +105,20 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetLayerWeight(1, 0.5f);
             if (!runParticles.isPlaying) rPEmitter.enabled = true;
-            var emission = runParticles.emission;
-            emission.enabled = true;
+
+            if (isGrounded)
+            {
+                var emission = runParticles.emission;
+                emission.enabled = true;
+            }
+            else
+            {
+                var emission = runParticles.emission;
+                emission.enabled = false;
+            }
         }
-        else { 
+        else 
+        { 
             anim.SetLayerWeight(1, 1f);
             var emission = runParticles.emission;
             emission.enabled = false;
@@ -134,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(dash());
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !IsJumping)
         {
             StartCoroutine(jump());
         }
@@ -220,9 +238,9 @@ public class PlayerMovement : MonoBehaviour
         canPunch = false;
         anim.Play("player_mf_attack");
         yield return new WaitForSeconds(0.6f);
-        meleehitbox.SetActive(true);
+        mfhitbox.SetActive(true);
         yield return new WaitForSeconds(0.12f);
-        meleehitbox.SetActive(false);
+        mfhitbox.SetActive(false);
         yield return new WaitForSeconds(0.7f);
         canPunch = true;
     }
@@ -262,9 +280,11 @@ public class PlayerMovement : MonoBehaviour
     }
     private IEnumerator jump()
     {
+        IsJumping = true;
         rb.AddForce(transform.up * jumpForce);
         isGrounded = false;
         yield return null;
+        IsJumping = false;
     }
 
     private IEnumerator pickUpWeapon(int id)
@@ -317,9 +337,11 @@ public class PlayerMovement : MonoBehaviour
         canDash = true;
     }
 
-    public IEnumerator TitleCard()
+    public IEnumerator damage(int damage)
     {
-        yield return new WaitForSeconds(0.5f);
+        invincible = true;
+        hp -= damage;
+        yield return new WaitForSeconds(0.2f);
         invincible = false;
     }
 
@@ -331,6 +353,7 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
         }
 
+        /*
         if (collision.gameObject.CompareTag("camTrigger"))
         {
             cameraAnim.Play("camera_rise");
@@ -339,6 +362,7 @@ public class PlayerMovement : MonoBehaviour
         {
             cameraAnim.Play("camera_fall");
         }
+        */
 
         if (collision.gameObject.CompareTag("weaponPickup") && currentWeapon == 0)
         {
@@ -346,20 +370,25 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        if (collision.gameObject.tag == "enemyhitbox" && !invincible)
+        if (!invincible)
         {
-            hp += 30;
-            invincible = true;
-            StartCoroutine(TitleCard());
-        }
+            if (collision.gameObject.tag == "enemyhitbox")
+            {
+                StartCoroutine(damage(30));
+            }
 
-        if (collision.gameObject.tag == "enemyorb" && !invincible)
-        {
-            hp -= 20;
-            invincible = true;
-            StartCoroutine(TitleCard());
+            if (collision.gameObject.tag == "enemyorb")
+            {
+                StartCoroutine(damage(20));
+            }
         }
-
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 3)
+        {
+            isGrounded = false;
+        }
+    }
 }
