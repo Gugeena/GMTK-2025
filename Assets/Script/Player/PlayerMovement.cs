@@ -46,6 +46,9 @@ public class PlayerMovement : MonoBehaviour
 
     bool canLose = true;
 
+    [SerializeField]
+    private int currentWeapon = 0; //0 - Fists // 1 - bow // 2 - Boomerang // 3 - motherfucker
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         direction = 1;
         canPunch = true;
+
+        currentWeapon = 0;
 
         rPEmitter = runParticles.emission;
     }
@@ -128,10 +133,10 @@ public class PlayerMovement : MonoBehaviour
 
     void handleCombat()
     {
-        print(comboIndex);
         if (Input.GetMouseButtonDown(0) && canPunch)
         {
-            StartCoroutine(punch());
+            if(currentWeapon == 0)StartCoroutine(punch());
+            else if (currentWeapon == 3)StartCoroutine(mfAttack());
         }
 
         if ((elapsed >= comboTime) || (comboIndex >= punchCombos.Length) || isRunning)
@@ -186,6 +191,18 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         canPunch = true;
     }
+
+    private IEnumerator mfAttack()
+    {
+        canPunch = false;
+        anim.Play("player_mf_attack");
+        yield return new WaitForSeconds(0.6f);
+        meleehitbox.SetActive(true);
+        yield return new WaitForSeconds(0.12f);
+        meleehitbox.SetActive(false);
+        yield return new WaitForSeconds(0.7f);
+        canPunch = true;
+    }
     private IEnumerator dash()
     {
         print("dashing");
@@ -208,7 +225,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private IEnumerator jump()
     {
-        yield return new WaitForSeconds(0.1f);
         rb.AddForce(transform.up * jumpForce);
         isGrounded = false;
         yield return null;
