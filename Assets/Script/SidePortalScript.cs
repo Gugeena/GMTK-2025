@@ -5,28 +5,15 @@ using UnityEngine;
 
 public class SidePortalScript : MonoBehaviour
 {
-    public Transform RLocation;
-    public Transform LLocation;
-    void Start()
-    {
-        
-    }
+    public static Transform RLocation;
+    public static Transform LLocation;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Transform RRLocation;
+    public Transform LLLocation;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Start()
     {
-        if (collision.gameObject.name == "Player" && this.gameObject.name == "LLocation")
-        {
-            collision.gameObject.transform.position = RLocation.position;
-        }
-        else if (collision.gameObject.name == "Player" && this.gameObject.name == "RLocation")
-        {
-            collision.gameObject.transform.position = LLocation.position;
-        }
+        RLocation = RRLocation;
+        LLocation = LLLocation;
     }
 }

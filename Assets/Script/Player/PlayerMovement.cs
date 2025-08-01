@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -46,6 +47,18 @@ public class PlayerMovement : MonoBehaviour
 
     bool canLose = true;
 
+    public UnityEngine.UI.Slider hpslider;
+    float hpCurVel = 0f;
+
+    [SerializeField]
+    public int currentWeapon = 0; //0 - Fists // 1 - bow // 2 - Boomerang // 3 - motherfucker
+
+    [Header("Weapons")]
+    [SerializeField]
+    private GameObject motherfucker;
+    [SerializeField]
+    private GameObject motherFuckerPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +66,10 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         direction = 1;
         canPunch = true;
+
+
+
+        currentWeapon = 0;
 
         rPEmitter = runParticles.emission;
     }
@@ -66,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
         handleCombat();
         handleHP();
     }
+
 
     void handleMovement()
     {
@@ -128,10 +146,15 @@ public class PlayerMovement : MonoBehaviour
 
     void handleCombat()
     {
-        print(comboIndex);
         if (Input.GetMouseButtonDown(0) && canPunch)
         {
-            StartCoroutine(punch());
+            if(currentWeapon == 0)StartCoroutine(punch());
+            else if (currentWeapon == 3)StartCoroutine(mfAttack());
+        }
+
+        if(Input.GetMouseButtonDown(1) && canPunch)
+        {
+            if (currentWeapon == 3) StartCoroutine(mfSpecial());
         }
 
         if ((elapsed >= comboTime) || (comboIndex >= punchCombos.Length) || isRunning)
@@ -159,16 +182,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void handleHP()
     {
-        if (hp > 0 && canLose)
+        hp = Mathf.Clamp(hp, 0, 150);
+        float currHP = Mathf.SmoothDamp(hpslider.value, hp, ref hpCurVel, 0.2f);
+        hpslider.value = currHP;
+
+        if (hp < 150 && canLose)
         {
             canLose = false;
             StartCoroutine(losehp());
         }
     }
 
+
     public IEnumerator losehp()
     {
-        hp--;
+        hp++;
         yield return new WaitForSeconds(0.3f);
         canLose = true;
         print(hp);
@@ -185,6 +213,32 @@ public class PlayerMovement : MonoBehaviour
         elapsed = 0;
         yield return new WaitForSeconds(0.4f);
         canPunch = true;
+    }
+
+    private IEnumerator mfAttack()
+    {
+        canPunch = false;
+        anim.Play("player_mf_attack");
+        yield return new WaitForSeconds(0.6f);
+        meleehitbox.SetActive(true);
+        yield return new WaitForSeconds(0.12f);
+        meleehitbox.SetActive(false);
+        yield return new WaitForSeconds(0.7f);
+        canPunch = true;
+    }
+
+    private IEnumerator mfSpecial()
+    {
+        anim.Play("player_mf_special");
+        yield return new WaitForSeconds(1.2f);
+        Transform temp = transform.GetChild(3).GetChild(1);
+        Vector2 mfPos = temp.position;
+        Quaternion mfRot = temp.rotation;
+        GameObject m = Instantiate(motherFuckerPrefab, mfPos, mfRot);
+        m.GetComponent<mfScript>().direction = direction;
+        motherfucker.SetActive(false);
+        currentWeapon = 0;
+
     }
     private IEnumerator dash()
     {
@@ -208,9 +262,25 @@ public class PlayerMovement : MonoBehaviour
     }
     private IEnumerator jump()
     {
-        yield return new WaitForSeconds(0.1f);
         rb.AddForce(transform.up * jumpForce);
         isGrounded = false;
+        yield return null;
+    }
+
+    private IEnumerator pickUpWeapon(int id)
+    {
+        currentWeapon = id;
+        
+        if (id == 0)
+        {
+            motherfucker.SetActive(false);
+        }
+        else if (id == 1) { }
+        else if (id == 2) { }
+        else if (id == 3) {
+            print(id);
+            motherfucker.SetActive(true);
+        }
         yield return null;
     }
 
@@ -268,13 +338,26 @@ public class PlayerMovement : MonoBehaviour
         else if (collision.gameObject.CompareTag("camTriggerDown"))
         {
             cameraAnim.Play("camera_fall");
+        }
 
-            if (collision.gameObject.tag == "enemyhitbox" && !invincible)
-            {
-                hp += 30;
-                invincible = true;
-                StartCoroutine(TitleCard());
-            }
+        if (collision.gameObject.CompareTag("weaponPickup") && currentWeapon == 0)
+        {
+            StartCoroutine(pickUpWeapon(collision.gameObject.GetComponent<weaponPickupScript>().weaponID));
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "enemyhitbox" && !invincible)
+        {
+            hp += 30;
+            invincible = true;
+            StartCoroutine(TitleCard());
+        }
+
+        if (collision.gameObject.tag == "enemyorb" && !invincible)
+        {
+            hp -= 20;
+            invincible = true;
+            StartCoroutine(TitleCard());
         }
 
     }
