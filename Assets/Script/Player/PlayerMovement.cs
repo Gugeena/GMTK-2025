@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Permissions;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
@@ -42,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canDash = true;
 
     public GameObject meleehitbox;
-    float hp = 0;
+    public static float hp = 0;
     public bool invincible = false;
 
     bool canLose = true;
@@ -51,17 +53,23 @@ public class PlayerMovement : MonoBehaviour
     float hpCurVel = 0f;
 
     [SerializeField]
-    public int currentWeapon = 0; //0 - Fists // 1 - bow // 2 - Boomerang // 3 - motherfucker
+    public int currentWeapon = 0; //0 - Fists // 1 - bow // 2 - Boomerang // 3 - motherfucker // 4 - spear
 
     [Header("Weapons")]
     [SerializeField]
     private GameObject motherfucker, bowHands, backBow;
     [SerializeField]
     private GameObject motherFuckerPrefab, arrow;
+    [SerializeField]
+    private GameObject boomerangPrefab;
 
     public GameObject mfhitbox;
 
     bool IsJumping = false;
+
+    public GameObject spear;
+
+    public GameObject boomerang;
 
     // Start is called before the first frame update
     void Start()
@@ -165,8 +173,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && canPunch)
         {
-            if(currentWeapon == 0)StartCoroutine(punch());
-            else if (currentWeapon == 3)StartCoroutine(mfAttack());
+            if (currentWeapon == 0) StartCoroutine(punch());
+            else if (currentWeapon == 3) StartCoroutine(mfAttack());
+            else if (currentWeapon == 4) StartCoroutine(spearAttack());
+            else if (currentWeapon == 2) StartCoroutine(boomerangAttack());
         }
 
         if(Input.GetMouseButtonDown(1) && canPunch)
@@ -181,8 +191,36 @@ public class PlayerMovement : MonoBehaviour
         if (comboIndex > 0) elapsed += Time.deltaTime;
     }
 
+    public IEnumerator spearAttack()
+    {
+        yield break;
+    }
+
+    public IEnumerator boomerangAttack()
+    {
+        //anim.Play("player_mf_special");
+        //yield return new WaitForSeconds(1.2f);
+        Transform temp = transform.GetChild(3).GetChild(3);
+        Vector2 mfPos = temp.position;
+        Quaternion mfRot = temp.rotation;
+        GameObject m = Instantiate(boomerangPrefab, mfPos, mfRot);
+        Rigidbody2D mrb = m.GetComponent<Rigidbody2D>();
+
+
+        Vector2 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // gamoitvlis in world space sad aris mouse
+        Vector2 dir = mousepos - mfPos; // gvadzlevs directions -1;0 for left da egeti shit boomerangidan mausamde
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg; // radianebidan gadaaq degreeshi'
+        mrb.velocity = dir * 4f;
+
+        boomerang.SetActive(false);
+        currentWeapon = 0;
+        yield break;
+    }
+
+
     public void handleHP()
     {
+        if (hpslider.value > 150) hpslider.value = 150;
         hp = Mathf.Clamp(hp, 0, 150);
         float currHP = Mathf.SmoothDamp(hpslider.value, hp, ref hpCurVel, 0.2f);
         hpslider.value = currHP;
@@ -198,7 +236,7 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator losehp()
     {
         hp++;
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.2f);
         canLose = true;
         print(hp);
     }
@@ -279,12 +317,22 @@ public class PlayerMovement : MonoBehaviour
         if (id == 0)
         {
             motherfucker.SetActive(false);
+            spear.SetActive(false);
         }
         else if (id == 1) { }
-        else if (id == 2) { }
+        else if (id == 2) 
+        {
+            print(id);
+            boomerang.SetActive(true);
+        }
         else if (id == 3) {
             print(id);
             motherfucker.SetActive(true);
+        }
+        else if (id == 4)
+        {
+            print(id);
+            spear.SetActive(true);
         }
         yield return null;
     }
@@ -310,7 +358,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.layer == 3)
+        if (collision.gameObject.layer == 3 || collision.gameObject.layer == 8)
         {
             isGrounded = true;
         }
@@ -364,14 +412,14 @@ public class PlayerMovement : MonoBehaviour
 
             if (collision.gameObject.tag == "enemyorb")
             {
-                StartCoroutine(damage(20));
+                StartCoroutine(damage(25));
             }
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 3)
+        if (collision.gameObject.layer == 3 || collision.gameObject.layer == 8)
         {
             isGrounded = false;
         }

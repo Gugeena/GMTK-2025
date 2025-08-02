@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -11
+  m_SortingOrder: -111
   m_Sprite: {fileID: -1219884801, guid: 1eb3e2c63c560954e95735fc5a0b8186, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -184,7 +184,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -276,7 +276,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: -55
   m_Sprite: {fileID: 452092509, guid: 1eb3e2c63c560954e95735fc5a0b8186, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -519,7 +519,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -8
+  m_SortingOrder: -88
   m_Sprite: {fileID: 112784367, guid: 1eb3e2c63c560954e95735fc5a0b8186, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -603,7 +603,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -3
+  m_SortingOrder: -33
   m_Sprite: {fileID: -1219884801, guid: 1eb3e2c63c560954e95735fc5a0b8186, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -873,7 +873,7 @@ GameObject:
   - component: {fileID: 4319037403325648193}
   m_Layer: 7
   m_Name: Enemy(Charger)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -925,8 +925,8 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 1
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &5697481601799965619
 Animator:
@@ -970,6 +970,10 @@ MonoBehaviour:
   animator: {fileID: 0}
   canMove: 1
   particles: {fileID: 2235657635126729578, guid: c1679ffbc8cd43244b37d65014f049d3, type: 3}
+  weapons:
+  - {fileID: 9132741610408570697, guid: f40d362fde6cdb84d96c435e5025057c, type: 3}
+  - {fileID: 9132741610408570697, guid: dfc61ff21e6971c40834c10ef47ffa97, type: 3}
+  - {fileID: 9132741610408570697, guid: 5793b2a6cc87df64382f0fa6b66c178f, type: 3}
 --- !u!1 &4977672520368061023
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,7 +1046,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -4
+  m_SortingOrder: -44
   m_Sprite: {fileID: -1860621332, guid: 1eb3e2c63c560954e95735fc5a0b8186, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1232,7 +1236,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -7
+  m_SortingOrder: -77
   m_Sprite: {fileID: -1860621332, guid: 1eb3e2c63c560954e95735fc5a0b8186, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
