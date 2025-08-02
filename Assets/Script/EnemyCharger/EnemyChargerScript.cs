@@ -176,5 +176,11 @@ public class EnemyChargerScript : MonoBehaviour
         {
             isGrounded = true;
         }
+
+        if (collision.gameObject.tag == "mfHitbox")
+        {
+            print("hit");
+            StartCoroutine(death());
+        }
     }
 }

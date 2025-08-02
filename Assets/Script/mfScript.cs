@@ -30,6 +30,7 @@ public class mfScript : MonoBehaviour
     private ParticleSystem particles;
     void Awake()
     {
+        
         move = false;
         playerTransform = GameObject.Find("Player").transform;
         rb = GetComponent<Rigidbody2D>();
@@ -42,7 +43,7 @@ public class mfScript : MonoBehaviour
     {
         if (move)
         {
-            rb.velocity = new Vector2(speed * direction, 0);
+            rb.velocity = new Vector2(speed * direction, rb.velocity.y);
 
         }
         else if (goBack) {
@@ -91,6 +92,7 @@ public class mfScript : MonoBehaviour
         camShakerScript.Stop();
         particles.Stop();
         yield return new WaitForSeconds(0.6f);
+        rb.gravityScale = 1;
         goBack = true;
     }
 
@@ -102,6 +104,20 @@ public class mfScript : MonoBehaviour
 
 
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "LLocation")
+        {
+            rb.MovePosition(new Vector2(SidePortalScript.RLocation.position.x, transform.position.y));
+            StartCoroutine(teleport());
+        }
+        else if (collision.gameObject.name == "RLocation")
+        {
+            rb.MovePosition(new Vector2(SidePortalScript.LLocation.position.x + 0.25f, transform.position.y));
+            StartCoroutine(teleport());
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.name == "LLocation")
         {
