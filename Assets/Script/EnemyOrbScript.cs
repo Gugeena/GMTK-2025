@@ -22,7 +22,7 @@ public class EnemyOrbScript : MonoBehaviour
         Vector2 targetPosition = target.position;
 
         moveDirection = (targetPosition - (Vector2)transform.position).normalized;
-        moveDirection += new Vector2(0, -0.075f);
+        moveDirection += new Vector2(0, -0.09f);
     }
 
     // Update is called once per frame
@@ -31,11 +31,28 @@ public class EnemyOrbScript : MonoBehaviour
        transform.Translate(moveDirection * speed * Time.deltaTime);
     }
 
+    private void OnDestroy()
+    {
+        Instantiate(particle, this.transform.position, Quaternion.identity);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "Enemy")
+        if (!(collision.gameObject.tag == "Enemy" || collision.gameObject.layer == 8))
         {
-            Instantiate(particle, this.transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+
+        if (collision.gameObject.tag == "mfHitbox" || collision.gameObject.tag == "meleehitbox")
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!(collision.gameObject.tag == "Enemy" || collision.gameObject.layer == 8))
+        {
             Destroy(gameObject);
         }
     }

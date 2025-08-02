@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4ec37cfc8854b234997c7c561d5ae88b
+guid: 3da4ba1a8180780438b71120e0ba7c4c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -123,85 +123,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Weapons_0
+      name: Ouroborous-export_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 0
-        width: 9
-        height: 16
+        width: 39
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f267933813727a9448ae51d7b40a3127
-      internalID: 532422429
+      spriteID: ae2064ad1fde0da4080e8bf8a73ece6b
+      internalID: 477989489
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Weapons_1
+      name: Ouroborous-export_1
       rect:
         serializedVersion: 2
-        x: 20
+        x: 39
         y: 0
-        width: 7
-        height: 19
+        width: 39.5
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: abb9627c6fdaf0548b3804e52ff6e1b1
-      internalID: -452694930
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Weapons_2
-      rect:
-        serializedVersion: 2
-        x: 35
-        y: 0
-        width: 12
-        height: 12
-      alignment: 9
-      pivot: {x: 0.123661675, y: 0.20892297}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8d0c88048e66ee649852705ebde5f4a7
-      internalID: 160159198
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Weapons_3
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 0
-        width: 7
-        height: 21
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 81ef5e428074e804d960b8f3075f7100
-      internalID: 617151225
+      spriteID: 9cef2ee46d632f84cb2b8c2303f429f2
+      internalID: 868237903
       vertices: []
       indices: 
       edges: []
@@ -217,10 +175,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Weapons_0: 532422429
-      Weapons_1: -452694930
-      Weapons_2: 160159198
-      Weapons_3: 617151225
+      Ouroborous-export_0: 477989489
+      Ouroborous-export_1: 868237903
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

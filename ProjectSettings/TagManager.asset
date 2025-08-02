@@ -11,6 +11,9 @@ TagManager:
   - camTriggerDown
   - meleehitbox
   - enemyhitbox
+  - mfHitbox
+  - weaponPickup
+  - enemyorb
   layers:
   - Default
   - TransparentFX
@@ -20,7 +23,7 @@ TagManager:
   - UI
   - Player
   - Enemy
-  - 
+  - Platform
   - 
   - 
   - 

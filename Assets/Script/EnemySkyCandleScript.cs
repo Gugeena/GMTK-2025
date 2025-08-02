@@ -22,12 +22,16 @@ public class EnemySkyCandleScript : MonoBehaviour
 
     public Animator animatorofparent;
 
+    public GameObject glow;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player").transform;
         animator = GetComponent<Animator>();
+
+        rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
     }
 
     // Update is called once per frame
@@ -114,6 +118,12 @@ public class EnemySkyCandleScript : MonoBehaviour
             rb.AddForce(force * (knockback * 1000f), ForceMode2D.Impulse);
             print("damaged");
         }
+
+        if (collision.gameObject.tag == "mfHitbox")
+        {
+            print("hit");
+            StartCoroutine(death());
+        }
     }
 
     public IEnumerator death()
@@ -131,6 +141,7 @@ public class EnemySkyCandleScript : MonoBehaviour
         }
         canMove = false;
         canAttack = false;
+        PlayerMovement.hp++;
         Instantiate(particles, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
         yield break;

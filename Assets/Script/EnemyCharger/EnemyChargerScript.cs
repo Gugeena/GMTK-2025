@@ -29,6 +29,17 @@ public class EnemyChargerScript : MonoBehaviour
         isGrounded = false;
 
         rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
+
+        canAttack = false;
+        canMove = false;
+        StartCoroutine(waiter());
+    }
+
+    public IEnumerator waiter()
+    {
+        yield return new WaitForSeconds(0.5f);
+        canMove = true;
+        canAttack = true;
     }
 
     // Update is called once per frame
@@ -56,9 +67,8 @@ public class EnemyChargerScript : MonoBehaviour
 
                     Vector2 targetposition = new Vector2(player.position.x, transform.position.y);
 
-                    transform.position = Vector2.MoveTowards(transform.position, targetposition, movespeed * Time.deltaTime);
-
-                    rb.velocity = Vector2.zero;
+                    Vector2 moveDir = new Vector2(targetposition.x - transform.position.x, 0).normalized;
+                    rb.velocity = new Vector2(moveDir.x * movespeed, rb.velocity.y);
 
                     if (player.transform.position.x > this.transform.position.x)
                     {
@@ -125,13 +135,10 @@ public class EnemyChargerScript : MonoBehaviour
             BoxCollider2D bc = rbb.gameObject.GetComponent<BoxCollider2D>();
             if (bc != null) bc.isTrigger = false;
         }
-        int RandomChance = UnityEngine.Random.Range(0, 1);
-        if(RandomChance == 0)
-        {
-            Instantiate(weapons[0], this.gameObject.transform.position, Quaternion.identity);
-        }
         canMove = false;
         canAttack = false;
+        Instantiate(weapons[UnityEngine.Random.Range(0, 3)], this.gameObject.transform.position, Quaternion.identity);
+        PlayerMovement.hp++;
         Instantiate(particles, transform.position, Quaternion.identity);
         Destroy(gameObject);
         yield break;

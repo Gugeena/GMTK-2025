@@ -65,7 +65,7 @@ public class mfScript : MonoBehaviour
         }
         else if (direction == Vector2.zero && playerTransform.gameObject.GetComponent<PlayerMovement>().currentWeapon != 0)
         {
-            Instantiate(blowUpParticles);   
+            Instantiate(blowUpParticles, this.gameObject.transform.position, Quaternion.identity);   
             Destroy(gameObject);
         }
         else
