@@ -37,7 +37,6 @@ public class EnemySkyCandleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(canMove + "canMOOOVE");
 
         if (canAttack) handleFlip();
 
@@ -50,12 +49,10 @@ public class EnemySkyCandleScript : MonoBehaviour
 
         if (detectiondistance > distance)
         {
-            print("distance: " + distance + "-- stopdistance: " + stopDistance);
             if (distance > stopDistance)
             {
                 if (canMove)
                 {
-                    print("Shevedi");
                     transform.rotation = Quaternion.Euler(0f, 0f, 0);
 
                     animator.SetBool("shouldAttack", false);

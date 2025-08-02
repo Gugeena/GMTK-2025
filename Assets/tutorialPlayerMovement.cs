@@ -16,6 +16,8 @@ public class tutorialPlayerMovement : MonoBehaviour
 
     [SerializeField]
     private AnimationClip[] punchCombos;
+    [SerializeField]
+    private GameObject leftHand, rightHand;
 
     [SerializeField]
     private Animator cameraAnim;
@@ -45,16 +47,13 @@ public class tutorialPlayerMovement : MonoBehaviour
 
     public GameObject meleehitbox;
 
-    bool canLose = false;
 
     [SerializeField]
     public int currentWeapon = 0; //0 - Fists // 1 - bow // 2 - Boomerang // 3 - motherfucker
 
     [Header("Weapons")]
     [SerializeField]
-    private GameObject motherfucker;
-    [SerializeField]
-    private GameObject motherFuckerPrefab;
+    private GameObject arrow, bowHands;
 
     public GameObject mfhitbox;
 
@@ -68,6 +67,14 @@ public class tutorialPlayerMovement : MonoBehaviour
     [SerializeField]
     private Animator cineAnim;
 
+    [SerializeField]
+    private ParticleSystem chainParticle;
+    [SerializeField]
+    private GameObject[] shackles;
+
+    private bool bowScene = false;
+    private bool hasArrow = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,6 +85,9 @@ public class tutorialPlayerMovement : MonoBehaviour
         direction = 1;
         canPunch = true;
         trapped = true;
+
+        var emission = runParticles.emission;
+        emission.enabled = false;
 
         currentWeapon = 0;
         rPEmitter = runParticles.emission;
@@ -95,12 +105,14 @@ public class tutorialPlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (trapped == false)
+        if (trapped == false && bowScene == false)
         {
             handleMovement();
             handleCombat();
         }
-        else handleChained();
+        else if (trapped == true) handleChained();
+
+        if (currentWeapon == 1 && bowScene == false) bowAim();
     }
 
 
@@ -108,6 +120,7 @@ public class tutorialPlayerMovement : MonoBehaviour
     {
 
         float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
 
         if (!isDashing) rb.velocity = new Vector2(x * speed, rb.velocity.y);
 
@@ -115,11 +128,25 @@ public class tutorialPlayerMovement : MonoBehaviour
         anim.SetBool("isWalking", isRunning);
         if (isRunning)
         {
-            anim.SetLayerWeight(1, 0.5f);
+            if (currentWeapon == 0) anim.SetLayerWeight(1, 0.5f);
+            if (!runParticles.isPlaying) rPEmitter.enabled = true;
+
+            if (isGrounded)
+            {
+                var emission = runParticles.emission;
+                emission.enabled = true;
+            }
+            else
+            {
+                var emission = runParticles.emission;
+                emission.enabled = false;
+            }
         }
         else
         {
             anim.SetLayerWeight(1, 1f);
+            var emission = runParticles.emission;
+            emission.enabled = false;
         }
         if (isFalling)
         {
@@ -158,21 +185,17 @@ public class tutorialPlayerMovement : MonoBehaviour
         isFalling = rb.velocity.y < -0.1f;
         anim.SetBool("isFalling", isFalling);
         anim.SetBool("isJumping", !isGrounded);
-
     }
+    
 
     void handleCombat()
     {
         if (Input.GetMouseButtonDown(0) && canPunch)
         {
             if (currentWeapon == 0) StartCoroutine(punch());
-            else if (currentWeapon == 3) StartCoroutine(mfAttack());
+            else if (currentWeapon == 1 && hasArrow) StartCoroutine(bowShoot());
         }
 
-        if (Input.GetMouseButtonDown(1) && canPunch)
-        {
-            if (currentWeapon == 3) StartCoroutine(mfSpecial());
-        }
 
         if ((elapsed >= comboTime) || (comboIndex >= punchCombos.Length) || isRunning)
         {
@@ -231,10 +254,43 @@ public class tutorialPlayerMovement : MonoBehaviour
         rb.simulated = true;
         trapped = false;
         anim.SetBool("trapped", false);
-        Time.timeScale = 0.1f;
+        chainParticle.gameObject.SetActive(true);
+        chainParticle.Play();
+        foreach(GameObject g in shackles)
+        {
+            Rigidbody2D rb = g.GetComponent<Rigidbody2D>();
+            rb.simulated = true;
+            float randomX = Random.Range(-5f, 5f);
+            float randomY = Random.Range(0f, 10f);
+            Vector2 random = new Vector2(randomX, randomY);
+            rb.AddForce(random * 10);
+            rb.AddTorque(Random.Range(-5f, 5f) * 15);
+        }
+        Time.timeScale = 0.2f;
         cineAnim.Play("cinecam_zoomin");
         yield return null;
 
+    }
+
+    private IEnumerator bowCutscene()
+    {
+        rb.velocity = Vector2.zero;
+        isRunning = false;
+        isDashing = false;
+        isFalling = false;
+
+
+        canPunch = false;
+        anim.Play("player_bowShoot");
+        yield return new WaitForSeconds(0.4f);
+        Time.timeScale = 0.4f;
+        GameObject arr = Instantiate(arrow, bowHands.transform.position, bowHands.transform.rotation);
+        arr.GetComponent<Rigidbody2D>().gravityScale = 0.2f;
+        arr.GetComponent<Rigidbody2D>().AddForce(arr.transform.right * 400 * direction);
+        canPunch = true;
+        yield return new WaitForSeconds(1.3f);
+        Time.timeScale = 1;
+        bowScene = false;
     }
 
     private IEnumerator punch()
@@ -250,33 +306,6 @@ public class tutorialPlayerMovement : MonoBehaviour
         canPunch = true;
     }
 
-    private IEnumerator mfAttack()
-    {
-        canPunch = false;
-        anim.Play("player_mf_attack");
-        yield return new WaitForSeconds(0.6f);
-        mfhitbox.SetActive(true);
-        yield return new WaitForSeconds(0.12f);
-        mfhitbox.SetActive(false);
-        yield return new WaitForSeconds(0.7f);
-        canPunch = true;
-    }
-
-    private IEnumerator mfSpecial()
-    {
-        canPunch = false;
-        anim.Play("player_mf_special");
-        yield return new WaitForSeconds(1.2f);
-        Transform temp = transform.GetChild(3).GetChild(1);
-        Vector2 mfPos = temp.position;
-        Quaternion mfRot = temp.rotation;
-        GameObject m = Instantiate(motherFuckerPrefab, mfPos, mfRot);
-        m.GetComponent<mfScript>().direction = direction;
-        motherfucker.SetActive(false);
-        currentWeapon = 0;
-        canPunch = true;
-
-    }
     private IEnumerator dash()
     {
         print("dashing");
@@ -312,14 +341,17 @@ public class tutorialPlayerMovement : MonoBehaviour
 
         if (id == 0)
         {
-            motherfucker.SetActive(false);
+            bowHands.SetActive(false);
+            leftHand.SetActive(true);
+            rightHand.SetActive(true);
         }
-        else if (id == 1) { }
-        else if (id == 2) { }
-        else if (id == 3)
+        else if (id == 1)
         {
-            print(id);
-            motherfucker.SetActive(true);
+            bowHands.SetActive(true);
+            leftHand.SetActive(false);
+            rightHand.SetActive(false);
+            bowScene = true;
+            StartCoroutine(bowCutscene());
         }
         yield return null;
     }
@@ -362,6 +394,33 @@ public class tutorialPlayerMovement : MonoBehaviour
         canDash = true;
     }
 
+    private IEnumerator bowShoot()
+    {
+        canPunch = false;
+        anim.Play("player_bowShoot");
+        yield return new WaitForSeconds(0.4f);
+        hasArrow = false;
+        GameObject arr = Instantiate(arrow, bowHands.transform.position, bowHands.transform.rotation);
+        arr.GetComponent<Rigidbody2D>().gravityScale = 0.5f;
+        arr.GetComponent<Rigidbody2D>().AddForce(arr.transform.right * 200 * direction);
+        canPunch = true;
+    }
+
+    private void bowAim()
+    {
+
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector3 aimDirection = (mousePos - transform.position).normalized * direction;
+
+        float angle = (Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg);
+
+        bowHands.transform.eulerAngles = new Vector3(0, 0, angle);
+
+
+    }
+
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -370,6 +429,13 @@ public class tutorialPlayerMovement : MonoBehaviour
         {
             StartCoroutine(pickUpWeapon(collision.gameObject.GetComponent<weaponPickupScript>().weaponID));
             Destroy(collision.gameObject);
+        }
+
+
+        if (collision.gameObject.CompareTag("arrowPickup"))
+        {
+            hasArrow = true;
+            Destroy(collision.gameObject.transform.parent.gameObject);
         }
     }
 
