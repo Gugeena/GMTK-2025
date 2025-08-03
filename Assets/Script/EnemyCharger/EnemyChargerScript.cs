@@ -54,56 +54,49 @@ public class EnemyChargerScript : MonoBehaviour
 
         float distance = Mathf.Abs(player.position.x - transform.position.x);
 
-        if (detectiondistance > distance)
+        if (distance > stopDistance)
         {
-            if (distance > stopDistance)
+
+            if (canMove)
             {
+                animator.SetBool("shouldRun", true);
+                animator.SetBool("shouldFein", false);
+                animator.SetBool("shouldAttack", false);
 
-                if (canMove)
+                Vector2 targetposition = new Vector2(player.position.x, transform.position.y);
+
+                Vector2 moveDir = new Vector2(targetposition.x - transform.position.x, 0).normalized;
+                rb.velocity = new Vector2(moveDir.x * movespeed, rb.velocity.y);
+
+                if (player.transform.position.x > this.transform.position.x)
                 {
-                    animator.SetBool("shouldRun", true);
-                    animator.SetBool("shouldFein", false);
-                    animator.SetBool("shouldAttack", false);
-
-                    Vector2 targetposition = new Vector2(player.position.x, transform.position.y);
-
-                    Vector2 moveDir = new Vector2(targetposition.x - transform.position.x, 0).normalized;
-                    rb.velocity = new Vector2(moveDir.x * movespeed, rb.velocity.y);
-
-                    if (player.transform.position.x > this.transform.position.x)
-                    {
-                        transform.localScale = new Vector3(1, 1, 1);
-                    }
-                    else
-                    {
-                        transform.localScale = new Vector3(-1, 1, 1);
-                    }
+                    transform.localScale = new Vector3(1, 1, 1);
                 }
-            }
-            else
-            {
-                if (canAttack && (int)player.transform.position.y == (int)this.transform.position.y)
+                else
                 {
-                    // && (int) player.position.y == (int) transform.position.y
-                    canMove = false;
-                    animator.SetBool("shouldRun", false);
-                    animator.SetBool("shouldAttack", true);
-                    animator.SetBool("shouldFein", false);
-                    StartCoroutine(attack());
-                    canAttack = false;
+                    transform.localScale = new Vector3(-1, 1, 1);
                 }
-                else if((int)player.transform.position.y != (int)this.transform.position.y)
-                {
-                    animator.SetBool("shouldRun", false);
-                    animator.SetBool("shouldAttack", false);
-                    animator.SetBool("shouldFein", true);
-                }
-
             }
         }
         else
         {
-            animator.SetBool("shouldRun", false);
+            if (canAttack && (int)player.transform.position.y == (int)this.transform.position.y)
+            {
+                // && (int) player.position.y == (int) transform.position.y
+                canMove = false;
+                animator.SetBool("shouldRun", false);
+                animator.SetBool("shouldAttack", true);
+                animator.SetBool("shouldFein", false);
+                StartCoroutine(attack());
+                canAttack = false;
+            }
+            else if ((int)player.transform.position.y != (int)this.transform.position.y)
+            {
+                animator.SetBool("shouldRun", false);
+                animator.SetBool("shouldAttack", false);
+                animator.SetBool("shouldFein", true);
+            }
+
         }
 
         animator.SetBool("isGrounded", isGrounded);
@@ -124,6 +117,7 @@ public class EnemyChargerScript : MonoBehaviour
 
     public IEnumerator death()
     {
+        PauseScript.kill++;
         Rigidbody2D[] rbs = GetComponentsInChildren<Rigidbody2D>();
         foreach (Rigidbody2D rbb in rbs)
         {
@@ -137,7 +131,7 @@ public class EnemyChargerScript : MonoBehaviour
         }
         canMove = false;
         canAttack = false;
-        Instantiate(weapons[UnityEngine.Random.Range(0, 3)], this.gameObject.transform.position, Quaternion.identity);
+        Instantiate(weapons[UnityEngine.Random.Range(0, 4)], this.gameObject.transform.position, Quaternion.identity);
         PlayerMovement.hp++;
         Instantiate(particles, transform.position, Quaternion.identity);
         Destroy(gameObject);
@@ -147,6 +141,7 @@ public class EnemyChargerScript : MonoBehaviour
     public IEnumerator attack()
     {
         //animplay
+        rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(0.4f);
         attackHitbox.SetActive(true);
         yield return new WaitForSeconds(0.2f);
@@ -179,6 +174,16 @@ public class EnemyChargerScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.tag == "meleehitbox")
+        {
+            print("hit");
+            hp--;
+            float direction = Mathf.Sign(transform.localScale.x);
+            float knockback = 4f;
+            Vector2 force = new Vector2(-direction, 0);
+            rb.AddForce(force * (knockback * 1000f), ForceMode2D.Impulse);
+            print("damaged");
+        }
         if (collision.gameObject.layer == 3)
         {
             isGrounded = true;

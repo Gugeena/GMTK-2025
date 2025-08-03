@@ -27,6 +27,7 @@ TagManager:
   - Enemy
   - Platform
   - whip
+  - FlyingEnemy
   - 
   - 
   - 
