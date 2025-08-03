@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6573887935230083959}
   - component: {fileID: 8376405826657276370}
-  m_Layer: 9
+  - component: {fileID: 3356348075035935364}
+  m_Layer: 10
   m_Name: SkyCandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 42222057382215243}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8673897, y: 1.22, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 25.469048, y: 25.469048, z: 1.6979365}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -84,6 +85,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3356348075035935364
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42222057382215243}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6bd2baaf1dec2774da72facea0093d8d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &766964085577899713
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +116,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5903091430340126902}
   - component: {fileID: 7707153559715821725}
-  m_Layer: 9
+  - component: {fileID: 741815973199415069}
+  m_Layer: 10
   m_Name: SkyCandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +133,7 @@ Transform:
   m_GameObject: {fileID: 766964085577899713}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1486111, y: 0.14, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 16, y: 16, z: 16}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -168,6 +191,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &741815973199415069
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766964085577899713}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6bd2baaf1dec2774da72facea0093d8d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &959952868785100517
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +223,8 @@ GameObject:
   - component: {fileID: 272098002622391493}
   - component: {fileID: 624421540593492315}
   - component: {fileID: 261485203032323925}
-  m_Layer: 9
+  - component: {fileID: 9098091475092779801}
+  m_Layer: 10
   m_Name: headPivot
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -195,7 +240,7 @@ Transform:
   m_GameObject: {fileID: 959952868785100517}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.14100003, z: 0}
+  m_LocalPosition: {x: 0.106, y: -0.147, z: 0}
   m_LocalScale: {x: 0.45199, y: 0.45199, z: 0.45199}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -275,6 +320,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &9098091475092779801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959952868785100517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f7e5335c37520428c34a2c66014836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1247048754157370086
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +342,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2301585089414482999}
   - component: {fileID: 2886617004247101106}
-  m_Layer: 9
+  - component: {fileID: 4278602953158730674}
+  m_Layer: 10
   m_Name: SkyCandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +359,7 @@ Transform:
   m_GameObject: {fileID: 1247048754157370086}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.609991, y: 1.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 23.955637, y: 23.955637, z: 1.5970424}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -359,6 +417,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &4278602953158730674
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247048754157370086}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6bd2baaf1dec2774da72facea0093d8d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2482489707839957566
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +450,8 @@ GameObject:
   - component: {fileID: 5615508225907590563}
   - component: {fileID: 595920828981619409}
   - component: {fileID: 1347293201047531375}
-  m_Layer: 9
+  - component: {fileID: 7265885884661800944}
+  m_Layer: 10
   m_Name: Leg_R
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -387,7 +467,7 @@ Transform:
   m_GameObject: {fileID: 2482489707839957566}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5169996, y: -1.7809999, z: 0}
+  m_LocalPosition: {x: 0.367, y: -1.394, z: 0}
   m_LocalScale: {x: 0.2703984, y: 0.2703984, z: 0.2703984}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -518,6 +598,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7265885884661800944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2482489707839957566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f7e5335c37520428c34a2c66014836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2566635334954825122
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,7 +620,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1276025859209913654}
   - component: {fileID: 5299536832702074781}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: CandleLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -544,7 +636,7 @@ Transform:
   m_GameObject: {fileID: 2566635334954825122}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.831, y: -0.404, z: 0}
+  m_LocalPosition: {x: 0.237, y: -0.404, z: 0}
   m_LocalScale: {x: -0.13736121, y: 0.13736121, z: 0.13736121}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -612,7 +704,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8529583931114945167}
   - component: {fileID: 264920907879868465}
-  m_Layer: 9
+  - component: {fileID: 541555436315091667}
+  m_Layer: 10
   m_Name: SkyCandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -628,7 +721,7 @@ Transform:
   m_GameObject: {fileID: 3003257866998577460}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.23, y: 0.15, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 15.825033, y: 20.944061, z: 10.236818}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -686,6 +779,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &541555436315091667
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3003257866998577460}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6bd2baaf1dec2774da72facea0093d8d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3035034816929892809
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,7 +810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2788913418068850503}
   - component: {fileID: 7453662220818720170}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: ParentOfSkyCandle
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -752,7 +866,8 @@ GameObject:
   - component: {fileID: 1353540398468066013}
   - component: {fileID: 8764312858432517299}
   - component: {fileID: 6067262550477452797}
-  m_Layer: 9
+  - component: {fileID: 928729287032240388}
+  m_Layer: 10
   m_Name: Torso
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -899,136 +1014,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!1 &4095893750272535640
-GameObject:
+--- !u!114 &928729287032240388
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 757275486126858718}
-  - component: {fileID: 6858342158007537674}
-  - component: {fileID: 1178028092942419449}
-  m_Layer: 9
-  m_Name: GravityBox
-  m_TagString: Enemy
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &757275486126858718
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4095893750272535640}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0235, y: -0.5227, z: 0}
-  m_LocalScale: {x: 0.95053, y: 1.15482, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3182390265753367631}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6858342158007537674
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4095893750272535640}
-  m_Enabled: 0
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!61 &1178028092942419449
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4095893750272535640}
+  m_GameObject: {fileID: 3938254693247280290}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 256
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.5443249, y: -0.06371093}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.6591804, y: 1.5713432}
-  m_EdgeRadius: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f7e5335c37520428c34a2c66014836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7170741454962129766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,7 +1035,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2828772066103953135}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: ORBSPAWNER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1072,7 +1069,8 @@ GameObject:
   - component: {fileID: 7591145700484042126}
   - component: {fileID: 3580644609840113701}
   - component: {fileID: 1459327981457823146}
-  m_Layer: 9
+  - component: {fileID: 2115515407354042630}
+  m_Layer: 10
   m_Name: Leg_L
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1088,7 +1086,7 @@ Transform:
   m_GameObject: {fileID: 8127845753604787250}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.008, y: -1.669, z: 0}
+  m_LocalPosition: {x: -0.008, y: -1.347, z: 0}
   m_LocalScale: {x: 0.2543309, y: 0.2543309, z: 0.2543309}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1219,6 +1217,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2115515407354042630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8127845753604787250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f7e5335c37520428c34a2c66014836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8411270282444701278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,7 +1241,8 @@ GameObject:
   - component: {fileID: 5500338321975459797}
   - component: {fileID: 3314297816432379953}
   - component: {fileID: 4177680670220362898}
-  m_Layer: 9
+  - component: {fileID: 2711968041846255230}
+  m_Layer: 10
   m_Name: Enemy(SkyCandle)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1255,7 +1266,6 @@ Transform:
   - {fileID: 4468013915400856682}
   - {fileID: 659206653571947970}
   - {fileID: 272098002622391493}
-  - {fileID: 757275486126858718}
   - {fileID: 2828772066103953135}
   m_Father: {fileID: 2788913418068850503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1342,6 +1352,18 @@ MonoBehaviour:
   - {fileID: 9132741610408570697, guid: 2ac9013f7ec96d54790a200c913ab2d3, type: 3}
   - {fileID: 9132741610408570697, guid: f40d362fde6cdb84d96c435e5025057c, type: 3}
   - {fileID: 9132741610408570697, guid: dfc61ff21e6971c40834c10ef47ffa97, type: 3}
+--- !u!114 &2711968041846255230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8411270282444701278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f7e5335c37520428c34a2c66014836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8868279895389365268
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,7 +1374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2383565742832665218}
   - component: {fileID: 8071201264785144729}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1368,7 +1390,7 @@ Transform:
   m_GameObject: {fileID: 8868279895389365268}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.084, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.91161, y: 0.91161, z: 0.91161}
   m_ConstrainProportionsScale: 0
   m_Children:

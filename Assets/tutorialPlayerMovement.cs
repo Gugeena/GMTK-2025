@@ -430,8 +430,9 @@ public class tutorialPlayerMovement : MonoBehaviour
 
     private IEnumerator endTutor() {
         cineAnim.Play("cinecam_end");
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(3f);
         loadScene.SceneToLoad = 3;
+        print(loadScene.SceneToLoad);
         SceneManager.LoadScene(1);
     }
 

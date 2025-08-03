@@ -22,6 +22,7 @@ public class Functions : MonoBehaviour
     {
         FadeOut.SetActive(true);
         yield return new WaitForSeconds(0.95f);
+        loadScene.SceneToLoad = 2;
         SceneManager.LoadScene(1);
     }
 }

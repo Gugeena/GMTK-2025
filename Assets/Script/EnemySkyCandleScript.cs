@@ -33,7 +33,6 @@ public class EnemySkyCandleScript : MonoBehaviour
     bool shouldrandomize = false;
     bool hasRandomized = true;
 
-    public GameObject[] weapons;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,7 +61,7 @@ public class EnemySkyCandleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(shouldrandomize && !hasRandomized)
+        if (shouldrandomize && !hasRandomized)
         {
             //randomizedx = UnityEngine.Random.RandomRange(1, 5);
             //randomizedy = UnityEngine.Random.RandomRange(3, 6);
@@ -70,7 +69,6 @@ public class EnemySkyCandleScript : MonoBehaviour
             //StartCoroutine(randomizertimer());
         }
 
-        print(canMove + "canMOOOVE");
 
         if (canAttack) handleFlip();
 
@@ -81,13 +79,11 @@ public class EnemySkyCandleScript : MonoBehaviour
 
         float distance = Mathf.Abs(player.position.x - transform.position.x);
 
-        print("distance: " + distance + "-- stopdistance: " + stopDistance);
 
         if (distance > stopDistance)
         {
             if (canMove)
             {
-                print("Shevedi");
                 transform.rotation = Quaternion.Euler(0f, 0f, 0);
 
                 animator.SetBool("shouldAttack", false);
@@ -144,7 +140,7 @@ public class EnemySkyCandleScript : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
     }
-    
+
     public IEnumerator randomizertimer()
     {
         yield return new WaitForSeconds(10f);
@@ -158,7 +154,7 @@ public class EnemySkyCandleScript : MonoBehaviour
         canAttack = true;
         canMove = true;
     }
-    
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -190,12 +186,13 @@ public class EnemySkyCandleScript : MonoBehaviour
             rbb.AddTorque(Random.Range(6f, 7f));
             rbb.gameObject.transform.parent = null;
             rbb.excludeLayers = rbb.excludeLayers ^ (1 << LayerMask.NameToLayer("Player"));
+            rbb.excludeLayers = rbb.excludeLayers ^ (1 << LayerMask.NameToLayer("Default"));
+            rbb.gameObject.GetComponent<bodyPartScript>().disappear();
             BoxCollider2D bc = rbb.gameObject.GetComponent<BoxCollider2D>();
             if (bc != null) bc.isTrigger = false;
         }
         canMove = false;
         canAttack = false;
-        Instantiate(weapons[UnityEngine.Random.Range(0, 4)], this.gameObject.transform.position, Quaternion.identity);
         PlayerMovement.hp++;
         Instantiate(particles, transform.position, Quaternion.identity);
         gameObject.SetActive(false);

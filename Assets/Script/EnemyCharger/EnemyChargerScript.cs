@@ -126,6 +126,8 @@ public class EnemyChargerScript : MonoBehaviour
             rbb.AddTorque(Random.Range(6f, 7f));
             rbb.gameObject.transform.parent = null;
             rbb.excludeLayers = rbb.excludeLayers ^ (1 << LayerMask.NameToLayer("Player"));
+            rbb.excludeLayers = rbb.excludeLayers ^ (1 << LayerMask.NameToLayer("Default"));
+            rbb.gameObject.GetComponent<bodyPartScript>().disappear();
             BoxCollider2D bc = rbb.gameObject.GetComponent<BoxCollider2D>();
             if (bc != null) bc.isTrigger = false;
         }

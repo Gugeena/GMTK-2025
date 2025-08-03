@@ -464,11 +464,12 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.layer == 3 || collision.gameObject.layer == 8)
         {
             isGrounded = true;
+
         }
+
 
         if (collision.gameObject.tag == "Enemy")
         {
-            print("hit by enemy itself");
             /*
             hp -= 5;
             float direction = Mathf.Sign(-transform.localScale.x);
@@ -544,6 +545,13 @@ public class PlayerMovement : MonoBehaviour
                  */
                 //rb.AddForce(force * (knockback * 10f), ForceMode2D.Impulse);
             }
+        }
+
+
+        if (collision.gameObject.layer == 3)
+        {
+            GetComponent<CapsuleCollider2D>().isTrigger = false;
+            isGrounded = true;  
         }
     }
 

@@ -15,6 +15,8 @@ public class ShakeSelfScript : MonoBehaviour
 
 
 
+
+
     public void Begin()
     {
         StopAllCoroutines();
@@ -44,6 +46,7 @@ public class ShakeSelfScript : MonoBehaviour
             {
                 yield return null;
             }
+
         }
     }
 }
