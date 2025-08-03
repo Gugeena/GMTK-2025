@@ -21,7 +21,7 @@ public class Functions : MonoBehaviour
     private IEnumerator StartGame()
     {
         FadeOut.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.95f);
         SceneManager.LoadScene(1);
     }
 }

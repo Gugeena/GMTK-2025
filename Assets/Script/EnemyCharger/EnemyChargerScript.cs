@@ -117,6 +117,7 @@ public class EnemyChargerScript : MonoBehaviour
 
     public IEnumerator death()
     {
+        PauseScript.kill++;
         Rigidbody2D[] rbs = GetComponentsInChildren<Rigidbody2D>();
         foreach (Rigidbody2D rbb in rbs)
         {
@@ -130,7 +131,7 @@ public class EnemyChargerScript : MonoBehaviour
         }
         canMove = false;
         canAttack = false;
-        Instantiate(weapons[UnityEngine.Random.Range(1, 2)], this.gameObject.transform.position, Quaternion.identity);
+        Instantiate(weapons[UnityEngine.Random.Range(0, 4)], this.gameObject.transform.position, Quaternion.identity);
         PlayerMovement.hp++;
         Instantiate(particles, transform.position, Quaternion.identity);
         Destroy(gameObject);
@@ -140,6 +141,7 @@ public class EnemyChargerScript : MonoBehaviour
     public IEnumerator attack()
     {
         //animplay
+        rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(0.4f);
         attackHitbox.SetActive(true);
         yield return new WaitForSeconds(0.2f);

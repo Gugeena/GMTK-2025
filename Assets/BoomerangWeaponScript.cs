@@ -26,6 +26,7 @@ public class BoomerangWeaponScript : MonoBehaviour
 
     private void Update()
     {
+        if (PauseScript.Paused) return;
         transform.Rotate(0, 0, 1440 * Time.deltaTime);
 
         if (shouldReturn)

@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
@@ -77,6 +78,12 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject spearhitbox;
 
+    public GameObject spearPrefab;
+
+    public bool ukvegadavaida = false;
+
+    public GameObject fadeOut;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -97,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseScript.Paused) return;
         handleMovement();
         handleCombat();
         handleHP();
@@ -106,7 +114,21 @@ public class PlayerMovement : MonoBehaviour
 
     void handleMovement()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            motherfucker.SetActive(false);
+            spear.SetActive(false);
+
+            bowHands.SetActive(false);
+            leftHand.SetActive(true);
+            rightHand.SetActive(true);
+            anim.SetBool("shouldChargeIn", false);
+            currentWeapon = 0;
+            canPunch = true;
+            leftHand.SetActive(true);
+            rightHand.SetActive(true);
+        }
+
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
@@ -171,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(jump());
         }
 
-        isFalling = rb.velocity.y < -0.9f;
+        isFalling = rb.velocity.y < -0.1f;
         anim.SetBool("isFalling", isFalling);
         anim.SetBool("isJumping", !isGrounded);
     }
@@ -181,16 +203,16 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canPunch)
         {
             if (currentWeapon == 0) StartCoroutine(punch());
-            else if (currentWeapon == 3 && hasArrow) StartCoroutine(mfAttack());
+            else if (currentWeapon == 3) StartCoroutine(mfAttack());
             else if (currentWeapon == 4) StartCoroutine(spearAttack());
             else if (currentWeapon == 2) StartCoroutine(boomerangAttack());
-            else if (currentWeapon == 1) StartCoroutine(bowShoot());
+            else if (currentWeapon == 1 && hasArrow) StartCoroutine(bowShoot());
         }
 
         if(Input.GetMouseButtonDown(1) && canPunch)
         {
             if (currentWeapon == 3 && isGrounded) StartCoroutine(mfSpecial());
-           
+            if (currentWeapon == 4) StartCoroutine(spearspecialAttack());
         }
 
         if ((elapsed >= comboTime) || (comboIndex >= punchCombos.Length) || isRunning)
@@ -204,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
     {
         canPunch = false;
         anim.Play("player_spearattack");
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.4f);
         spearhitbox.SetActive(true);
         yield return new WaitForSeconds(0.12f);
         spearhitbox.SetActive(false);
@@ -214,7 +236,17 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator spearspecialAttack()
     {
-        yield break;
+        canPunch = false;
+        anim.Play("player_spearspecialattack");
+        yield return new WaitForSeconds(1.2f);
+        Transform temp = transform.GetChild(3).GetChild(2);
+        Vector2 mfPos = temp.position;
+        Quaternion mfRot = temp.rotation;
+        GameObject m = Instantiate(spearPrefab, mfPos, mfRot);
+        spear.SetActive(false);
+        currentWeapon = 0;
+        canPunch = true;
+        anim.SetBool("shouldChargeIn", false);
     }
 
     public IEnumerator boomerangAttack()
@@ -238,9 +270,21 @@ public class PlayerMovement : MonoBehaviour
         yield break;
     }
 
+    public IEnumerator gadasvla()
+    {
+        ukvegadavaida = true;
+        fadeOut.SetActive(true);
+        yield return new WaitForSeconds(0.8f);
+        SceneManager.LoadScene(2);
+    }
 
     public void handleHP()
     {
+        if(hp <= 0 && !ukvegadavaida)
+        {
+            StartCoroutine(gadasvla());
+        }
+
         if (hpslider.value > 150) hpslider.value = 150;
         hp = Mathf.Clamp(hp, 0, 150);
         float currHP = Mathf.SmoothDamp(hpslider.value, hp, ref hpCurVel, 0.2f);
@@ -300,14 +344,13 @@ public class PlayerMovement : MonoBehaviour
         motherfucker.SetActive(false);
         currentWeapon = 0;
         canPunch = true;
-
     }
 
 
     private IEnumerator bowShoot()
     {
         canPunch = false;
-        anim.Play("player_bowShoot");
+        //anim.Play("player_bowShoot");
         yield return new WaitForSeconds(0.4f);
         hasArrow = false;
         GameObject arr = Instantiate(arrow, bowHands.transform.position, bowHands.transform.rotation);
@@ -371,8 +414,13 @@ public class PlayerMovement : MonoBehaviour
             bowHands.SetActive(false);
             leftHand.SetActive(true);
             rightHand.SetActive(true);
+            anim.SetBool("shouldChargeIn", false);
+
+            currentWeapon = 0;
         }
-        else if (id == 1) {
+        else if (id == 1)
+        {
+            hasArrow = true;
             bowHands.SetActive(true);
             leftHand.SetActive(false);
             rightHand.SetActive(false);
@@ -417,6 +465,18 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = true;
         }
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            print("hit by enemy itself");
+            /*
+            hp -= 5;
+            float direction = Mathf.Sign(-transform.localScale.x);
+            float knockback = 4f;
+            Vector2 force = new Vector2(-direction, 0);
+            rb.AddForce(force * (knockback * 100f), ForceMode2D.Impulse);
+            */
+        }
     }
 
     public IEnumerator dashCooldown()
@@ -427,6 +487,7 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator damage(int damage)
     {
+        PauseScript.dmg += damage;
         invincible = true;
         hp -= damage;
         yield return new WaitForSeconds(0.2f);
@@ -452,16 +513,39 @@ public class PlayerMovement : MonoBehaviour
         {
             if (collision.gameObject.tag == "enemyhitbox")
             {
+                /*
+                float direction = Mathf.Sign(-transform.localScale.x);
+                float knockback = 4f;
+                Vector2 force = new Vector2(-direction, 0);
+                rb.AddForce(force * (knockback * 100f), ForceMode2D.Impulse);
+                */
                 StartCoroutine(damage(30));
+                print("hit by enemy hitbox");
             }
 
             if (collision.gameObject.tag == "enemyorb")
             {
+                 /*
+                float direction = Mathf.Sign(-transform.localScale.x);
+                float knockback = 4f;
+                Vector2 force = new Vector2(-direction, 0);
+                rb.AddForce(force * (knockback * 100f), ForceMode2D.Impulse);
+                */
                 StartCoroutine(damage(25));
+            }
+
+            if (collision.gameObject.tag == "Enemy")
+            {
+                /*
+                hp -= 5;
+                float direction = Mathf.Sign(transform.localScale.x);
+                float knockback = 4f;
+                Vector2 force = new Vector2(-direction, 0);
+                 */
+                //rb.AddForce(force * (knockback * 10f), ForceMode2D.Impulse);
             }
         }
     }
-
 
     private void OnCollisionExit2D(Collision2D collision)
     {

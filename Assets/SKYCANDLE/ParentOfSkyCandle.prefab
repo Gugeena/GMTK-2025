@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 261485203032323925}
   m_Layer: 9
   m_Name: headPivot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 1347293201047531375}
   m_Layer: 9
   m_Name: Leg_R
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -754,7 +754,7 @@ GameObject:
   - component: {fileID: 6067262550477452797}
   m_Layer: 9
   m_Name: Torso
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -912,7 +912,7 @@ GameObject:
   - component: {fileID: 1178028092942419449}
   m_Layer: 9
   m_Name: GravityBox
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1074,7 +1074,7 @@ GameObject:
   - component: {fileID: 1459327981457823146}
   m_Layer: 9
   m_Name: Leg_L
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1233,7 +1233,7 @@ GameObject:
   - component: {fileID: 4177680670220362898}
   m_Layer: 9
   m_Name: Enemy(SkyCandle)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1337,6 +1337,11 @@ MonoBehaviour:
   verticalSlowdownFactor: 0.25
   randomizedx: 0
   randomizedy: 0
+  weapons:
+  - {fileID: 9132741610408570697, guid: 5793b2a6cc87df64382f0fa6b66c178f, type: 3}
+  - {fileID: 9132741610408570697, guid: 2ac9013f7ec96d54790a200c913ab2d3, type: 3}
+  - {fileID: 9132741610408570697, guid: f40d362fde6cdb84d96c435e5025057c, type: 3}
+  - {fileID: 9132741610408570697, guid: dfc61ff21e6971c40834c10ef47ffa97, type: 3}
 --- !u!1 &8868279895389365268
 GameObject:
   m_ObjectHideFlags: 0

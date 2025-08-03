@@ -32,6 +32,8 @@ public class EnemySkyCandleScript : MonoBehaviour
     public float randomizedy;
     bool shouldrandomize = false;
     bool hasRandomized = true;
+
+    public GameObject[] weapons;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,10 +64,10 @@ public class EnemySkyCandleScript : MonoBehaviour
     {
         if(shouldrandomize && !hasRandomized)
         {
-            randomizedx = UnityEngine.Random.RandomRange(1, 4);
-            randomizedy = UnityEngine.Random.RandomRange(3, 5);
-            hasRandomized = true;
-            StartCoroutine(randomizertimer());
+            //randomizedx = UnityEngine.Random.RandomRange(1, 5);
+            //randomizedy = UnityEngine.Random.RandomRange(3, 6);
+            //hasRandomized = true;
+            //StartCoroutine(randomizertimer());
         }
 
         print(canMove + "canMOOOVE");
@@ -179,6 +181,7 @@ public class EnemySkyCandleScript : MonoBehaviour
 
     public IEnumerator death()
     {
+        PauseScript.kill++;
         Rigidbody2D[] rbs = GetComponentsInChildren<Rigidbody2D>();
         foreach (Rigidbody2D rbb in rbs)
         {
@@ -192,6 +195,7 @@ public class EnemySkyCandleScript : MonoBehaviour
         }
         canMove = false;
         canAttack = false;
+        Instantiate(weapons[UnityEngine.Random.Range(0, 4)], this.gameObject.transform.position, Quaternion.identity);
         PlayerMovement.hp++;
         Instantiate(particles, transform.position, Quaternion.identity);
         gameObject.SetActive(false);

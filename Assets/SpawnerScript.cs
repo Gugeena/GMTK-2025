@@ -7,6 +7,8 @@ public class SpawnerScript : MonoBehaviour
     public GameObject[] banished;
     bool canspawn = true;
     public GameObject spawningparticles;
+
+    public GameObject[] weapons;
     // Start is called before the first frame update
     void Start()
     {

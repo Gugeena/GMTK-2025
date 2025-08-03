@@ -281,6 +281,7 @@ public class tutorialPlayerMovement : MonoBehaviour
 
 
         canPunch = false;
+        anim.SetBool("isWalking", false);
         anim.Play("player_bowShoot");
         yield return new WaitForSeconds(0.4f);
         Time.timeScale = 0.4f;
