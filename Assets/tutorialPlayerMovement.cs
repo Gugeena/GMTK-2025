@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class tutorialPlayerMovement : MonoBehaviour
@@ -97,8 +98,8 @@ public class tutorialPlayerMovement : MonoBehaviour
         if (trapped)
         {
             rb.simulated = false;
-            anim.Play("player_chained");
             anim.SetBool("trapped", true);
+            anim.Play("player_chained");
         }
     }
 
@@ -278,7 +279,9 @@ public class tutorialPlayerMovement : MonoBehaviour
         isRunning = false;
         isDashing = false;
         isFalling = false;
-
+        anim.SetBool("isWalking", false);
+        anim.SetBool("isFalling", false);
+        anim.SetBool("isJumping", false);
 
         canPunch = false;
         anim.Play("player_bowShoot");
@@ -386,6 +389,10 @@ public class tutorialPlayerMovement : MonoBehaviour
             Time.timeScale = 1;
             cineAnim.Play("cinecam_zoomout");
         }
+        if (collision.gameObject.CompareTag("endTutorial"))
+        {
+            StartCoroutine(endTutor());
+        }
     }
 
     public IEnumerator dashCooldown()
@@ -420,7 +427,12 @@ public class tutorialPlayerMovement : MonoBehaviour
 
     }
 
-
+    private IEnumerator endTutor() {
+        cineAnim.Play("cinecam_end");
+        yield return new WaitForSeconds(3.5f);
+        loadScene.SceneToLoad = 3;
+        SceneManager.LoadScene(1);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -437,6 +449,11 @@ public class tutorialPlayerMovement : MonoBehaviour
             hasArrow = true;
             Destroy(collision.gameObject.transform.parent.gameObject);
         }
+
+        if (collision.gameObject.CompareTag("endTutorial"))
+        {
+            StartCoroutine(endTutor());
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -445,5 +462,6 @@ public class tutorialPlayerMovement : MonoBehaviour
         {
             isGrounded = false;
         }
+
     }
 }
