@@ -27,7 +27,7 @@ public class SpawnerScript : MonoBehaviour
     public IEnumerator spawner()
     {
         canspawn = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         int randomchoice = UnityEngine.Random.Range(0, 3);
         float randomx = UnityEngine.Random.Range(15.379f, 35.6f);
         if (randomchoice == 1)

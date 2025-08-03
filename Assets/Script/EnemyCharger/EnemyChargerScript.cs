@@ -20,6 +20,8 @@ public class EnemyChargerScript : MonoBehaviour
 
     public GameObject[] weapons;
 
+    public bool isdead = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -117,6 +119,7 @@ public class EnemyChargerScript : MonoBehaviour
 
     public IEnumerator death()
     {
+        isdead = true;
         PauseScript.kill++;
         Rigidbody2D[] rbs = GetComponentsInChildren<Rigidbody2D>();
         foreach (Rigidbody2D rbb in rbs)
@@ -128,6 +131,10 @@ public class EnemyChargerScript : MonoBehaviour
             rbb.excludeLayers = rbb.excludeLayers ^ (1 << LayerMask.NameToLayer("Player"));
             BoxCollider2D bc = rbb.gameObject.GetComponent<BoxCollider2D>();
             if (bc != null) bc.isTrigger = false;
+            GameObject bodypart = rb.gameObject;
+            rbb.excludeLayers = rbb.excludeLayers ^ (1 << LayerMask.NameToLayer("Default"));
+            //yield return StartCoroutine(destroyer(rbb));
+            //StartCoroutine(destroyer(rbb));
         }
         canMove = false;
         canAttack = false;
@@ -137,6 +144,28 @@ public class EnemyChargerScript : MonoBehaviour
         Destroy(gameObject);
         yield break;
     }
+
+    /*
+    public IEnumerator destroyer()
+    {
+        Rigidbody2D[] rbs = GetComponentsInChildren<Rigidbody2D>();
+        foreach (Rigidbody2D rbb in rbs)
+        {
+            rbb.bodyType = RigidbodyType2D.Dynamic;
+            rbb.AddForce(transform.up * Random.Range(2f, 3f), ForceMode2D.Impulse);
+            rbb.AddTorque(Random.Range(6f, 7f));
+            rbb.gameObject.transform.parent = null;
+            rbb.excludeLayers = rbb.excludeLayers ^ (1 << LayerMask.NameToLayer("Player"));
+            BoxCollider2D bc = rbb.gameObject.GetComponent<BoxCollider2D>();
+            if (bc != null) bc.isTrigger = false;
+            GameObject bodypart = rb.gameObject;
+            yield return new WaitForSeconds(100f);
+            Destroy(bodypart);
+            //yield return StartCoroutine(destroyer(rbb));
+            //StartCoroutine(destroyer(rbb));
+        }
+    }
+    */
 
     public IEnumerator attack()
     {

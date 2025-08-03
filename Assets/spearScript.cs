@@ -133,7 +133,7 @@ public class spearScript : MonoBehaviour
             collision.gameObject.name == "square" ||
             collision.gameObject.name == "Torso")
         {
-            return;
+            StartCoroutine(Bouttaxplode());
         }
 
         if (collision.gameObject.layer == 8 && !hasexploded || collision.gameObject.layer == 3 && !hasexploded)

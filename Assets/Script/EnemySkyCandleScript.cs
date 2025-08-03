@@ -33,7 +33,6 @@ public class EnemySkyCandleScript : MonoBehaviour
     bool shouldrandomize = false;
     bool hasRandomized = true;
 
-    public GameObject[] weapons;
     // Start is called before the first frame update
     void Start()
     {
@@ -190,12 +189,12 @@ public class EnemySkyCandleScript : MonoBehaviour
             rbb.AddTorque(Random.Range(6f, 7f));
             rbb.gameObject.transform.parent = null;
             rbb.excludeLayers = rbb.excludeLayers ^ (1 << LayerMask.NameToLayer("Player"));
+            rbb.excludeLayers = rbb.excludeLayers ^ (1 << LayerMask.NameToLayer("Default"));
             BoxCollider2D bc = rbb.gameObject.GetComponent<BoxCollider2D>();
             if (bc != null) bc.isTrigger = false;
         }
         canMove = false;
         canAttack = false;
-        Instantiate(weapons[UnityEngine.Random.Range(0, 4)], this.gameObject.transform.position, Quaternion.identity);
         PlayerMovement.hp++;
         Instantiate(particles, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
