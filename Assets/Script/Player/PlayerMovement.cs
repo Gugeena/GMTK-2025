@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private AnimationClip[] punchCombos;
+    [SerializeField]
+    private GameObject leftHand, rightHand;
 
     [SerializeField]
     private Animator cameraAnim;
@@ -57,13 +59,15 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Weapons")]
     [SerializeField]
-    private GameObject motherfucker, bowHands, backBow;
+    private GameObject motherfucker;
     [SerializeField]
-    private GameObject motherFuckerPrefab, arrow;
+    private GameObject motherFuckerPrefab, arrow, bowHands;
     [SerializeField]
     private GameObject boomerangPrefab;
 
     public GameObject mfhitbox;
+
+    private bool hasArrow;
 
     bool IsJumping = false;
 
@@ -83,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
         hp = 150f;
 
-        currentWeapon = 0;
+        pickUpWeapon(0);
 
         rPEmitter = runParticles.emission;
 
@@ -93,10 +97,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print("hp" + hp);
         handleMovement();
         handleCombat();
         handleHP();
+        if (currentWeapon == 1) bowAim();
     }
 
 
@@ -113,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("isWalking", isRunning);
         if (isRunning)
         {
-            anim.SetLayerWeight(1, 0.5f);
+            if(currentWeapon == 0)anim.SetLayerWeight(1, 0.5f);
             if (!runParticles.isPlaying) rPEmitter.enabled = true;
 
             if (isGrounded)
@@ -177,14 +181,16 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canPunch)
         {
             if (currentWeapon == 0) StartCoroutine(punch());
-            else if (currentWeapon == 3) StartCoroutine(mfAttack());
+            else if (currentWeapon == 3 && hasArrow) StartCoroutine(mfAttack());
             else if (currentWeapon == 4) StartCoroutine(spearAttack());
             else if (currentWeapon == 2) StartCoroutine(boomerangAttack());
+            else if (currentWeapon == 1) StartCoroutine(bowShoot());
         }
 
         if(Input.GetMouseButtonDown(1) && canPunch)
         {
             if (currentWeapon == 3 && isGrounded) StartCoroutine(mfSpecial());
+           
         }
 
         if ((elapsed >= comboTime) || (comboIndex >= punchCombos.Length) || isRunning)
@@ -253,7 +259,6 @@ public class PlayerMovement : MonoBehaviour
         hp++;
         yield return new WaitForSeconds(0.2f);
         canLose = true;
-        print(hp);
     }
 
     private IEnumerator punch()
@@ -281,6 +286,7 @@ public class PlayerMovement : MonoBehaviour
         canPunch = true;
     }
 
+
     private IEnumerator mfSpecial()
     {
         canPunch = false;
@@ -296,6 +302,33 @@ public class PlayerMovement : MonoBehaviour
         canPunch = true;
 
     }
+
+
+    private IEnumerator bowShoot()
+    {
+        canPunch = false;
+        anim.Play("player_bowShoot");
+        yield return new WaitForSeconds(0.4f);
+        hasArrow = false;
+        GameObject arr = Instantiate(arrow, bowHands.transform.position, bowHands.transform.rotation);
+        arr.GetComponent<Rigidbody2D>().AddForce(arr.transform.right * 200 * direction);
+        canPunch = true;
+    }
+
+    private void bowAim()
+    {
+
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector3 aimDirection = (mousePos - transform.position).normalized * direction;
+
+        float angle = (Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg);
+
+        bowHands.transform.eulerAngles = new Vector3(0, 0, angle);
+
+
+    }
+
     private IEnumerator dash()
     {
         print("dashing");
@@ -334,20 +367,25 @@ public class PlayerMovement : MonoBehaviour
         {
             motherfucker.SetActive(false);
             spear.SetActive(false);
+
+            bowHands.SetActive(false);
+            leftHand.SetActive(true);
+            rightHand.SetActive(true);
         }
-        else if (id == 1) { }
+        else if (id == 1) {
+            bowHands.SetActive(true);
+            leftHand.SetActive(false);
+            rightHand.SetActive(false);
+        }
         else if (id == 2) 
         {
-            print(id);
             boomerang.SetActive(true);
         }
         else if (id == 3) {
-            print(id);
             motherfucker.SetActive(true);
         }
         else if (id == 4)
         {
-            print(id);
             spear.SetActive(true);
             anim.SetBool("shouldChargeIn", true);
         }
@@ -397,27 +435,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("JumpPad"))
-        {
-            rb.AddForce(transform.up * 425 * rb.gravityScale);
-            isGrounded = false;
-        }
-
-        /*
-        if (collision.gameObject.CompareTag("camTrigger"))
-        {
-            cameraAnim.Play("camera_rise");
-        }
-        else if (collision.gameObject.CompareTag("camTriggerDown"))
-        {
-            cameraAnim.Play("camera_fall");
-        }
-        */
 
         if (collision.gameObject.CompareTag("weaponPickup") && currentWeapon == 0)
         {
             StartCoroutine(pickUpWeapon(collision.gameObject.GetComponent<weaponPickupScript>().weaponID));
             Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("arrowPickup"))
+        {
+            hasArrow = true;
+            Destroy(collision.gameObject.transform.parent.gameObject);
         }
 
         if (!invincible)
@@ -433,6 +461,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
 
     private void OnCollisionExit2D(Collision2D collision)
     {

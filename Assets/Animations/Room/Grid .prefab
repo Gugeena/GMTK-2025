@@ -4995,7 +4995,7 @@ GameObject:
   - component: {fileID: 2419105762128294371}
   - component: {fileID: 6664155341403015377}
   - component: {fileID: 4496648646268284632}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: TilemapPlatforms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5880,7 +5880,7 @@ PlatformEffector2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3404092375349564961}
   m_Enabled: 1
-  m_UseColliderMask: 1
+  m_UseColliderMask: 0
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
