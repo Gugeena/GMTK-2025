@@ -84,6 +84,8 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject fadeOut;
 
+    public GameObject hurtparticle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -94,11 +96,11 @@ public class PlayerMovement : MonoBehaviour
 
         hp = 150f;
 
-        pickUpWeapon(0);
+        StartCoroutine(pickUpWeapon(0));
 
         rPEmitter = runParticles.emission;
 
-         rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
+        rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
     }
 
     // Update is called once per frame
@@ -114,19 +116,10 @@ public class PlayerMovement : MonoBehaviour
 
     void handleMovement()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetKeyDown(KeyCode.Q) && currentWeapon != 0)
         {
-            motherfucker.SetActive(false);
-            spear.SetActive(false);
-
-            bowHands.SetActive(false);
-            leftHand.SetActive(true);
-            rightHand.SetActive(true);
-            anim.SetBool("shouldChargeIn", false);
-            currentWeapon = 0;
-            canPunch = true;
-            leftHand.SetActive(true);
-            rightHand.SetActive(true);
+            print("shevedi axla iaragebi unda gavtisho");
+            StartCoroutine(pickUpWeapon(0));
         }
 
         float x = Input.GetAxisRaw("Horizontal");
@@ -139,7 +132,11 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("isWalking", isRunning);
         if (isRunning)
         {
-            if(currentWeapon == 0)anim.SetLayerWeight(1, 0.5f);
+            if (currentWeapon == 0 || currentWeapon == 3)
+            {
+                anim.SetLayerWeight(1, 0.5f);
+            }
+         
             if (!runParticles.isPlaying) rPEmitter.enabled = true;
 
             if (isGrounded)
@@ -275,7 +272,7 @@ public class PlayerMovement : MonoBehaviour
         ukvegadavaida = true;
         fadeOut.SetActive(true);
         yield return new WaitForSeconds(0.8f);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     public void handleHP()
@@ -408,8 +405,10 @@ public class PlayerMovement : MonoBehaviour
         
         if (id == 0)
         {
+            print("Settings =weapons==off=");
             motherfucker.SetActive(false);
             spear.SetActive(false);
+            boomerang.SetActive(false);
 
             bowHands.SetActive(false);
             leftHand.SetActive(true);
@@ -428,14 +427,33 @@ public class PlayerMovement : MonoBehaviour
         else if (id == 2) 
         {
             boomerang.SetActive(true);
+
+            motherfucker.SetActive(false);
+            spear.SetActive(false);
+
+            bowHands.SetActive(false);
+            leftHand.SetActive(true);
+            rightHand.SetActive(true);
+            anim.SetBool("shouldChargeIn", false);
+
         }
         else if (id == 3) {
             motherfucker.SetActive(true);
+
+            spear.SetActive(false);
+            boomerang.SetActive(false);
         }
         else if (id == 4)
         {
             spear.SetActive(true);
+            motherfucker.SetActive(false);
+            spear.SetActive(false);
+
             anim.SetBool("shouldChargeIn", true);
+
+            bowHands.SetActive(false);
+            leftHand.SetActive(true);
+            rightHand.SetActive(true);
         }
         yield return null;
     }
@@ -488,6 +506,7 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator damage(int damage)
     {
+        Instantiate(hurtparticle, new Vector2(transform.position.x, transform.position.y - 0.75f), Quaternion.identity);
         PauseScript.dmg += damage;
         invincible = true;
         hp -= damage;
@@ -497,9 +516,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.gameObject.CompareTag("weaponPickup") && currentWeapon == 0)
         {
+            print("iaragis ageba: " + collision.gameObject.GetComponent<weaponPickupScript>().weaponID);
             StartCoroutine(pickUpWeapon(collision.gameObject.GetComponent<weaponPickupScript>().weaponID));
             Destroy(collision.gameObject);
         }

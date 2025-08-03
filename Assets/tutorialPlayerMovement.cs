@@ -197,7 +197,6 @@ public class tutorialPlayerMovement : MonoBehaviour
             else if (currentWeapon == 1 && hasArrow) StartCoroutine(bowShoot());
         }
 
-
         if ((elapsed >= comboTime) || (comboIndex >= punchCombos.Length) || isRunning)
         {
             comboIndex = 0;
