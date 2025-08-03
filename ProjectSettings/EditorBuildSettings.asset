@@ -9,12 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 3a12cf34dbdd34f4aa3c0bb668dab4b7
   - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 12b791b2bdcf17940a7f85e23b8604ad
+  - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: f76dbd89a7fca9d458bb84fd69e3f793
   - enabled: 1
     path: Assets/Scenes/IrasScena.unity
     guid: 1d7a36c3c8980e24c81cacb03bec3bdf
-  - enabled: 1
-    path: Assets/Scenes/deathScene.unity
-    guid: 3ca6eaf97606fc147bbedbbd8e03ba36
   m_configObjects: {}
