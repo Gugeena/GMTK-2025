@@ -7,7 +7,7 @@ public class PauseScript : MonoBehaviour
 {
     public GameObject Scroll;
 
-    bool Paused = false;
+   public static bool Paused = false;
 
     public GameObject Fadeout;
     private void Update()

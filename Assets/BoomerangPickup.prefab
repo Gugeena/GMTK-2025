@@ -109,9 +109,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6304506125939145436}
   - component: {fileID: 3958733373509214263}
-  - component: {fileID: 3339702232768410350}
   - component: {fileID: 5892113501270628946}
   - component: {fileID: 6307366825615441505}
+  - component: {fileID: -1247869287370198800}
   m_Layer: 0
   m_Name: BoomerangPickup
   m_TagString: weaponPickup
@@ -187,19 +187,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3339702232768410350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9132741610408570697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f57e99339e59a3140bba15be375021aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponID: 2
 --- !u!95 &5892113501270628946
 Animator:
   serializedVersion: 5
@@ -266,3 +253,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.104351774, y: 0.16272113}
   m_EdgeRadius: 0
+--- !u!114 &-1247869287370198800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9132741610408570697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2834bf44d05614b93d0c5a592a2b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponID: 2

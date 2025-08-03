@@ -71,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject boomerang;
 
+    public GameObject spearhitbox;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -107,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isDashing) rb.velocity = new Vector2(x * speed, rb.velocity.y);
 
         isRunning = x != 0;
+
         anim.SetBool("isWalking", isRunning);
         if (isRunning)
         {
@@ -164,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(jump());
         }
 
-        isFalling = rb.velocity.y < -0.1f;
+        isFalling = rb.velocity.y < -0.9f;
         anim.SetBool("isFalling", isFalling);
         anim.SetBool("isJumping", !isGrounded);
     }
@@ -193,6 +196,18 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator spearAttack()
     {
+        canPunch = false;
+        anim.Play("player_spearattack");
+        yield return new WaitForSeconds(0.6f);
+        spearhitbox.SetActive(true);
+        yield return new WaitForSeconds(0.12f);
+        spearhitbox.SetActive(false);
+        yield return new WaitForSeconds(0.7f);
+        canPunch = true;
+    }
+
+    public IEnumerator spearspecialAttack()
+    {
         yield break;
     }
 
@@ -210,7 +225,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // gamoitvlis in world space sad aris mouse
         Vector2 dir = mousepos - mfPos; // gvadzlevs directions -1;0 for left da egeti shit boomerangidan mausamde
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg; // radianebidan gadaaq degreeshi'
-        mrb.velocity = dir * 4f;
+        mrb.velocity = dir.normalized * 15f;
 
         boomerang.SetActive(false);
         currentWeapon = 0;
@@ -294,7 +309,8 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(transform.right * direction * dashForce);
         }
-        anim.Play("player_dash");
+        if(currentWeapon != 4) anim.Play("player_dash");
+        else anim.Play("player_speardash");
         yield return new WaitForSeconds(0.3f);
         isDashing = false;
         rb.gravityScale = 1f;
@@ -333,6 +349,7 @@ public class PlayerMovement : MonoBehaviour
         {
             print(id);
             spear.SetActive(true);
+            anim.SetBool("shouldChargeIn", true);
         }
         yield return null;
     }

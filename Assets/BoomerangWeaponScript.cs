@@ -26,7 +26,7 @@ public class BoomerangWeaponScript : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(0, 0, 720 * Time.deltaTime);
+        transform.Rotate(0, 0, 1440 * Time.deltaTime);
 
         if (shouldReturn)
         {
@@ -40,7 +40,6 @@ public class BoomerangWeaponScript : MonoBehaviour
                 }
                 else
                 {
-                    Instantiate(blowUpParticles, this.gameObject.transform.position, Quaternion.identity);
                     Destroy(this.gameObject);
                 }
             }

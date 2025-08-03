@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6573887935230083959}
   - component: {fileID: 8376405826657276370}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: SkyCandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5903091430340126902}
   - component: {fileID: 7707153559715821725}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: SkyCandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 272098002622391493}
   - component: {fileID: 624421540593492315}
   - component: {fileID: 261485203032323925}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: headPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,10 +215,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 192
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -232,7 +232,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -270,7 +270,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -285,7 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2301585089414482999}
   - component: {fileID: 2886617004247101106}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: SkyCandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 5615508225907590563}
   - component: {fileID: 595920828981619409}
   - component: {fileID: 1347293201047531375}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -475,7 +475,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -513,7 +513,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -528,7 +528,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1276025859209913654}
   - component: {fileID: 5299536832702074781}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CandleLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -612,7 +612,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8529583931114945167}
   - component: {fileID: 264920907879868465}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: SkyCandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -696,7 +696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2788913418068850503}
   - component: {fileID: 7453662220818720170}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ParentOfSkyCandle
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -752,7 +752,7 @@ GameObject:
   - component: {fileID: 1353540398468066013}
   - component: {fileID: 8764312858432517299}
   - component: {fileID: 6067262550477452797}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -839,10 +839,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 192
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -856,7 +856,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -894,7 +894,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -910,7 +910,7 @@ GameObject:
   - component: {fileID: 757275486126858718}
   - component: {fileID: 6858342158007537674}
   - component: {fileID: 1178028092942419449}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: GravityBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -999,7 +999,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 392
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1038,7 +1038,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2828772066103953135}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: ORBSPAWNER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1072,7 +1072,7 @@ GameObject:
   - component: {fileID: 7591145700484042126}
   - component: {fileID: 3580644609840113701}
   - component: {fileID: 1459327981457823146}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1159,10 +1159,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 192
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1176,7 +1176,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1214,7 +1214,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -1231,7 +1231,7 @@ GameObject:
   - component: {fileID: 5500338321975459797}
   - component: {fileID: 3314297816432379953}
   - component: {fileID: 4177680670220362898}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Enemy(SkyCandle)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1281,10 +1281,10 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 256
   m_Interpolate: 1
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &3314297816432379953
 Animator:
@@ -1321,10 +1321,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movespeed: 3
   player: {fileID: 0}
-  stopDistance: 6
+  stopDistance: 3
   attackHitbox: {fileID: 0}
   canAttack: 1
-  detectiondistance: 10
+  detectiondistance: 100000
   animator: {fileID: 3314297816432379953}
   canMove: 1
   particles: {fileID: 2235657635126729578, guid: c1679ffbc8cd43244b37d65014f049d3, type: 3}
@@ -1333,6 +1333,10 @@ MonoBehaviour:
   orb: {fileID: 1433079439631198070, guid: 50bb2804dc45beb41a83f60eedd16c67, type: 3}
   animatorofparent: {fileID: 7453662220818720170}
   glow: {fileID: 2566635334954825122}
+  returnToYSpeed: 2
+  verticalSlowdownFactor: 0.25
+  randomizedx: 0
+  randomizedy: 0
 --- !u!1 &8868279895389365268
 GameObject:
   m_ObjectHideFlags: 0
@@ -1343,7 +1347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2383565742832665218}
   - component: {fileID: 8071201264785144729}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
